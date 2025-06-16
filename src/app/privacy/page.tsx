@@ -189,7 +189,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-semibold mb-4 text-text">Contact Us</h2>
             <p className="text-secondary leading-relaxed">
               If you have any questions about this Privacy Policy or our data practices, 
-              please contact us at privacy@pray4me.com.
+              please contact us at support@pray4me.app.
             </p>
           </section>
         </div>

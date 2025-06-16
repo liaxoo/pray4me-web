@@ -218,7 +218,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Contact Information</h2>
             <p className="text-secondary leading-relaxed">
-              If you have questions about these Terms of Service, please contact us at support@pray4me.com.
+              If you have questions about these Terms of Service, please contact us at support@pray4me.app.
             </p>
           </section>
         </div>
