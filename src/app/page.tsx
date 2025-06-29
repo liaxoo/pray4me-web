@@ -549,7 +549,7 @@ export default function Home() {
                 <span className="text-xl font-bold">Pray4Me</span>
               </div>
               <p className="text-white/80 mb-6">
-                Reconnect with hope and community through the power of prayer.
+                No one is alone in prayer.
               </p>
             </div>
             
