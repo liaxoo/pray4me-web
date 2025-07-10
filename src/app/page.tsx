@@ -12,11 +12,11 @@ const testimonials = [
     featured: true
   },
   {
-    name: "Jason L.",
+    name: "Michael T.",
     quote: "Pray4Me has completely changed my daily routine. Starting my mornings with prayer and encouragement sets a positive tone for my whole day."
   },
   {
-    name: "Daniel R.",
+    name: "Emma R.",
     quote: "I've tried many prayer apps, but Pray4Me stands out with its personalized prompts and welcoming design. It feels like it was made just for me."
   }
 ]
@@ -59,7 +59,7 @@ export default function Home() {
                 onClick={scrollToDownload}
                 className="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors"
               >
-                Download
+                Download Beta
               </button>
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function Home() {
                 onClick={scrollToDownload}
                 className="bg-text text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-text/90 transition-all duration-300 shadow-lg"
               >
-                Get started
+                Become a beta tester
               </motion.button>
             </motion.div>
 
@@ -175,7 +175,7 @@ export default function Home() {
               </h2>
               
               <p className="text-lg text-secondary mb-12 leading-relaxed">
-                This isn't social media—it's a Christian prayer platform where believers pray for strangers around the world. God calls us to pray for those in need, and while praying for friends and family is good, lifting up others during their darkest moments can help them greatly.
+                Pray4Me is a Christian prayer platform where believers pray for strangers around the world. We believe in the power of prayer and lifting up others during their darkest moments. Pray4Me connects believers from all countries and Christian denominations, creating a truly global prayer community.
               </p>
             </motion.div>
 
@@ -205,22 +205,12 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="text-text font-semibold">No Endless Scrolling</p>
-                    <p className="text-secondary text-sm">Just prayer, not distraction</p>
+                    <p className="text-secondary text-sm">Just prayer without distractions</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-2xl shadow-lg border border-tertiary">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <Check className="w-4 h-4 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-text font-semibold">Pure Prayer Focus</p>
-                    <p className="text-secondary text-sm">Help others, build faith</p>
-                  </div>
-                </div>
-              </div>
+
             </motion.div>
           </div>
 
@@ -330,7 +320,56 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
+
+
           </div>
+        </div>
+      </section>
+
+      {/* Prayer Boosting Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-secondary/5 to-primary/5">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Need extra support?
+            </h2>
+            <p className="text-xl text-secondary max-w-3xl mx-auto">
+              When you're facing critical moments in life, boost your prayer request to reach more believers and get the additional support you need.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border border-tertiary/50"
+          >
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="w-16 h-16 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full flex items-center justify-center mx-auto md:mx-0 mb-6">
+                  <span className="text-3xl">🚀</span>
+                </div>
+                <h3 className="text-3xl font-bold mb-4 text-center md:text-left">Prayer Boosting</h3>
+                <p className="text-lg text-secondary mb-6 text-center md:text-left">
+                  When you need extra prayer support, boost your request to reach more believers. Get additional prayers during critical moments in your life.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-secondary/10 to-primary/10 rounded-2xl p-6">
+                  <div className="text-4xl font-bold text-primary mb-2">50+</div>
+                  <div className="text-lg text-secondary">Additional believers reached</div>
+                  <div className="text-sm text-secondary mt-2">When you boost your prayer</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -465,7 +504,7 @@ export default function Home() {
                 className="bg-text text-white px-8 py-4 rounded-full font-semibold flex items-center space-x-3 hover:bg-text/90 transition-all duration-300 shadow-lg"
               >
                 <Download className="w-5 h-5" />
-                <span>Download on the App Store</span>
+                <span>Download Beta - App Store</span>
               </motion.a>
               
               <motion.a
@@ -477,7 +516,7 @@ export default function Home() {
                 className="bg-text text-white px-8 py-4 rounded-full font-semibold flex items-center space-x-3 hover:bg-text/90 transition-all duration-300 shadow-lg"
               >
                 <Download className="w-5 h-5" />
-                <span>Get it on Google Play</span>
+                <span>Download Beta - Google Play</span>
               </motion.a>
             </div>
 

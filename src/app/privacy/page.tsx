@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-        <p className="text-secondary mb-8">Last updated: June 15, 2025</p>
+        <p className="text-secondary mb-8">Last updated: July 10, 2025</p>
         
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
@@ -67,19 +67,33 @@ export default function PrivacyPolicy() {
             
             <h3 className="text-xl font-medium mb-3 text-text">Third-Party Services</h3>
             <p className="text-secondary leading-relaxed mb-4">
-              We use the following third-party services that may collect data:
+              We use the following third-party services that may collect data and can tie activity back to your user account:
             </p>
             <ul className="list-disc pl-6 text-secondary space-y-2 mb-6">
               <li><strong>PostHog:</strong> Analytics and user behavior tracking</li>
+              <li><strong>LogRocket:</strong> Session replay and performance monitoring</li>
+              <li><strong>Superwall:</strong> Paywall and subscription management</li>
+              <li><strong>RevenueCat:</strong> Subscription and in-app purchase tracking</li>
               <li><strong>Sentry:</strong> Error monitoring and crash reporting</li>
               <li><strong>Expo:</strong> Push notification services</li>
               <li><strong>Supabase:</strong> Database and backend services</li>
             </ul>
 
+            <h3 className="text-xl font-medium mb-3 text-text">User Activity Tracking</h3>
+            <p className="text-secondary leading-relaxed mb-4">
+              Our third-party services can track your activity and tie it back to your user account for the following purposes:
+            </p>
+            <ul className="list-disc pl-6 text-secondary space-y-2 mb-4">
+              <li><strong>PostHog:</strong> Tracks app usage, feature interactions, and user journey to improve the app experience</li>
+              <li><strong>LogRocket:</strong> Records session replays to help us identify and fix bugs and usability issues</li>
+              <li><strong>Superwall:</strong> Monitors paywall interactions and subscription flow to optimize the premium experience</li>
+              <li><strong>RevenueCat:</strong> Tracks subscription events, purchase history, and billing status</li>
+            </ul>
+            
             <h3 className="text-xl font-medium mb-3 text-text">Opt-Out Options</h3>
             <p className="text-secondary leading-relaxed">
-              You can opt out of analytics tracking and data collection within the app settings. 
-              This will disable crash reporting and usage metrics collection for your account.
+              To opt out of analytics tracking and data collection, please contact us at support@pray4me.app. 
+              We will process your request and disable tracking for your account. However, some tracking may still occur for essential app functionality.
             </p>
           </section>
 
@@ -170,6 +184,16 @@ export default function PrivacyPolicy() {
               <li>Opt-out of certain communications</li>
               <li>Request a copy of your data</li>
               <li>Cancel subscriptions through your app store account</li>
+            </ul>
+            
+            <h3 className="text-xl font-medium mb-3 text-text">Response Timeline</h3>
+            <p className="text-secondary leading-relaxed mb-4">
+              We will respond to your requests within the following timeframes:
+            </p>
+            <ul className="list-disc pl-6 text-secondary space-y-2">
+              <li><strong>Data Requests:</strong> We will provide your data within 30 days of receiving your request</li>
+              <li><strong>Account Deletion:</strong> We will delete your account and associated data within 30 days of receiving your request</li>
+              <li><strong>Opt-out Requests:</strong> We will process opt-out requests within 7 days of receiving your request</li>
             </ul>
             
             <h3 className="text-xl font-medium mb-3 text-text">Rights for European Union Users (GDPR)</h3>

@@ -23,7 +23,7 @@ export default function TermsOfService() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
-        <p className="text-secondary mb-8">Last updated: June 15, 2025</p>
+        <p className="text-secondary mb-8">Last updated: July 10, 2025</p>
         
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
@@ -113,6 +113,13 @@ export default function TermsOfService() {
             <p className="text-secondary leading-relaxed mb-4">
               Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your information.
             </p>
+            <h3 className="text-xl font-medium mb-3 text-text">Analytics and Tracking</h3>
+            <p className="text-secondary leading-relaxed mb-4">
+              By using Pray4Me, you consent to the collection and analysis of your app usage data through third-party services including PostHog, LogRocket, Superwall, and RevenueCat. These services help us improve the app experience and provide better support.
+            </p>
+            <p className="text-secondary leading-relaxed">
+              To opt out of tracking features, please contact us at support@pray4me.app. We will process your request and disable tracking for your account, though some essential functionality may require minimal data collection.
+            </p>
           </section>
 
           <section className="mb-8">
@@ -201,9 +208,15 @@ export default function TermsOfService() {
               <li>Your behavior disrupts the spiritual and supportive nature of our platform</li>
               <li>You engage in activities that could harm other users or the platform</li>
             </ul>
+            
+            <h3 className="text-xl font-medium mb-3 text-text">Account Deletion Requests</h3>
+            <p className="text-secondary leading-relaxed mb-4">
+              You may request deletion of your account and associated data by contacting us at support@pray4me.app. 
+              We will process your deletion request and remove your account and data within 30 days of receiving your request.
+            </p>
             <p className="text-secondary leading-relaxed">
-              You may also delete your account at any time through the app settings. Upon account deletion, 
-              your personal data will be removed in accordance with our Privacy Policy.
+              To request account deletion, please email us at support@pray4me.app with your request. 
+              Upon account deletion, your personal data will be removed in accordance with our Privacy Policy.
             </p>
           </section>
 
