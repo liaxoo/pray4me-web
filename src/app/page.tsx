@@ -496,7 +496,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
               <motion.a
-                href="https://apps.apple.com/app/pray4me"
+                href="https://testflight.apple.com/join/YCePX2uC"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -508,7 +508,7 @@ export default function Home() {
               </motion.a>
               
               <motion.a
-                href="https://play.google.com/store/apps/details?id=com.pray4me"
+                href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
