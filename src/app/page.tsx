@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Image from 'next/image'
 import { Download, ChevronLeft, ChevronRight, X, Check } from 'lucide-react'
+import Footer from '../components/Footer'
 
 const testimonials = [
   {
@@ -59,7 +60,7 @@ export default function Home() {
                 onClick={scrollToDownload}
                 className="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors"
               >
-                Download Beta
+                Download
               </button>
             </div>
           </div>
@@ -87,7 +88,7 @@ export default function Home() {
               </h1>
               
               <p className="text-xl md:text-2xl text-secondary mb-8 max-w-lg">
-                You don't need much time—5 minutes a day is plenty—and it can help someone in need.
+                You don't need much time. 5 minutes a day is plenty, and it can help someone in need.
               </p>
               
               <motion.button
@@ -96,7 +97,7 @@ export default function Home() {
                 onClick={scrollToDownload}
                 className="bg-text text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-text/90 transition-all duration-300 shadow-lg"
               >
-                Become a beta tester
+                Download
               </motion.button>
             </motion.div>
 
@@ -170,8 +171,8 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-8">
-                We do it a bit<br />
-                <span className="text-primary">different.</span>
+                A platform for<br />
+                <span className="text-primary">believers.</span>
               </h2>
               
               <p className="text-lg text-secondary mb-12 leading-relaxed">
@@ -221,7 +222,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="mt-20 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl p-8 md:p-12"
           >
-            <h3 className="text-3xl font-bold mb-4">🙏 Called to Pray for Others</h3>
+            <h3 className="text-3xl font-bold mb-4">We are called to pray for others.</h3>
             <p className="text-lg text-secondary mb-4">
               "Bear one another's burdens, and so fulfill the law of Christ." - Galatians 6:2
             </p>
@@ -327,6 +328,7 @@ export default function Home() {
       </section>
 
       {/* Prayer Boosting Section */}
+      {/*
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-secondary/5 to-primary/5">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -372,7 +374,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -496,7 +497,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
               <motion.a
-                href="https://testflight.apple.com/join/YCePX2uC"
+                href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -504,7 +505,7 @@ export default function Home() {
                 className="bg-text text-white px-8 py-4 rounded-full font-semibold flex items-center space-x-3 hover:bg-text/90 transition-all duration-300 shadow-lg"
               >
                 <Download className="w-5 h-5" />
-                <span>Download Beta - App Store</span>
+                <span>App Store</span>
               </motion.a>
               
               <motion.a
@@ -516,7 +517,7 @@ export default function Home() {
                 className="bg-text text-white px-8 py-4 rounded-full font-semibold flex items-center space-x-3 hover:bg-text/90 transition-all duration-300 shadow-lg"
               >
                 <Download className="w-5 h-5" />
-                <span>Download Beta - Google Play</span>
+                <span>Google Play</span>
               </motion.a>
             </div>
 
@@ -578,45 +579,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-text text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <Image src="/img/logo.svg" alt="Pray4Me Logo" width={32} height={32} />
-                <span className="text-xl font-bold">Pray4Me</span>
-              </div>
-              <p className="text-white/80 mb-6">
-                No one is alone in prayer.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-white/80">
-                <li><a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-white transition-colors">Terms of Service</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60">
-            <p>&copy; 2025 Pray4Me. All rights reserved.</p>
-            <p className="mt-2">
-              Created by{' '}
-              <a 
-                href="https://x.com/sebascdev" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary/80 transition-colors"
-              >
-                @sebascdev
-              </a>
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
-} 
+}
