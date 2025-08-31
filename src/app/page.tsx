@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Download, ChevronLeft, ChevronRight, X, Check } from 'lucide-react'
 import Footer from '../components/Footer'
+import { useBetaDownloadModal } from '../components/BetaDownloadModal'
 
 const testimonials = [
   {
@@ -24,6 +25,7 @@ const testimonials = [
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const { openModal, BetaDownloadModal } = useBetaDownloadModal()
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
@@ -497,7 +499,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
               <motion.a
-                href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme"
+                href="https://apps.apple.com/us/app/pray4me-christian-requests/id6744624982"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -519,6 +521,8 @@ export default function Home() {
                 <Download className="w-5 h-5" />
                 <span>Google Play</span>
               </motion.a>
+              
+
             </div>
 
             <motion.div
@@ -580,6 +584,7 @@ export default function Home() {
       </section>
 
       <Footer />
+      <BetaDownloadModal />
     </main>
   )
 }

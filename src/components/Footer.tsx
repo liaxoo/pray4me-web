@@ -1,9 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 import { Twitter, Instagram } from 'lucide-react'
+import { useBetaDownloadModal } from './BetaDownloadModal'
 
 export default function Footer() {
+  const { openModal, BetaDownloadModal } = useBetaDownloadModal()
+
   return (
-    <footer className="bg-text text-white py-12 px-4 sm:px-6 lg:px-8">
+    <>
+      <footer className="bg-text text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
           <div>
@@ -27,13 +33,24 @@ export default function Footer() {
 
 
 
-
+{// --- IGNORE ---
+//https://testflight.apple.com/join/YCePX2uC
+//https://apps.apple.com/us/app/pray4me-christian-requests/id6744624982
+}
 
             <div>
               <h3 className="font-semibold mb-4">Download</h3>
               <ul className="space-y-2 text-white/80">
-                <li><a href="https://testflight.apple.com/join/YCePX2uC" className="hover:text-white transition-colors">iOS Beta</a></li>
-                <li><a href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme" className="hover:text-white transition-colors">Android Beta</a></li>
+                <li><a href="https://apps.apple.com/us/app/pray4me-christian-requests/id6744624982" className="hover:text-white transition-colors">iOS</a></li>
+                <li><a href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme" className="hover:text-white transition-colors">Android</a></li>
+                <li>
+                  <button 
+                    onClick={openModal}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Beta Version
+                  </button>
+                </li>
               </ul>
             </div>            <div>
               <h3 className="font-semibold mb-4">Contact</h3>
@@ -86,5 +103,8 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    
+    <BetaDownloadModal />
+    </>
   )
 }
