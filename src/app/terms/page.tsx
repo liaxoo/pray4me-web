@@ -117,7 +117,7 @@ export default function TermsOfService() {
             </p>
             <h3 className="text-xl font-medium mb-3 text-text">Analytics and Tracking</h3>
             <p className="text-secondary leading-relaxed mb-4">
-              By using Pray4Me, you consent to the collection and analysis of your app usage data through third-party services including PostHog, LogRocket, Superwall, and RevenueCat. These services help us improve the app experience and provide better support.
+              By using Pray4Me, you consent to the collection and analysis of your app usage data through third-party services including Firebase. These services help us improve the app experience and provide better support.
             </p>
             <p className="text-secondary leading-relaxed">
               To opt out of tracking features, please contact us at support@pray4me.app. We will process your request and disable tracking for your account, though some essential functionality may require minimal data collection.

@@ -72,11 +72,8 @@ export default function PrivacyPolicy() {
               We use the following third-party services that may collect data and can tie activity back to your user account:
             </p>
             <ul className="list-disc pl-6 text-secondary space-y-2 mb-6">
-              <li><strong>PostHog:</strong> Analytics and user behavior tracking</li>
-              <li><strong>LogRocket:</strong> Session replay and performance monitoring</li>
+              <li><strong>Firebase:</strong> Analytics, user behavior tracking, error monitoring, and crash reporting</li>
               <li><strong>Superwall:</strong> Paywall and subscription management</li>
-              <li><strong>RevenueCat:</strong> Subscription and in-app purchase tracking</li>
-              <li><strong>Sentry:</strong> Error monitoring and crash reporting</li>
               <li><strong>Expo:</strong> Push notification services</li>
               <li><strong>Supabase:</strong> Database and backend services</li>
             </ul>
@@ -86,10 +83,8 @@ export default function PrivacyPolicy() {
               Our third-party services can track your activity and tie it back to your user account for the following purposes:
             </p>
             <ul className="list-disc pl-6 text-secondary space-y-2 mb-4">
-              <li><strong>PostHog:</strong> Tracks app usage, feature interactions, and user journey to improve the app experience</li>
-              <li><strong>LogRocket:</strong> Records session replays to help us identify and fix bugs and usability issues</li>
+              <li><strong>Firebase:</strong> Tracks app usage, feature interactions, and user journey to improve the app experience, and monitors crashes and errors to help us identify and fix technical issues</li>
               <li><strong>Superwall:</strong> Monitors paywall interactions and subscription flow to optimize the premium experience</li>
-              <li><strong>RevenueCat:</strong> Tracks subscription events, purchase history, and billing status</li>
             </ul>
             
             <h3 className="text-xl font-medium mb-3 text-text">Opt-Out Options</h3>
