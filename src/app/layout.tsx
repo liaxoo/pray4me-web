@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
   keywords: 'prayer, community, faith, spiritual, help, support, christian, global',
   authors: [{ name: 'Pray4Me Team' }],
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
     title: 'Pray4Me - Global Prayer Community',
     description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
@@ -26,9 +29,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/img/star.svg" type="image/svg+xml" />
-      </head>
       <body className="font-outfit">{children}</body>
     </html>
   )
