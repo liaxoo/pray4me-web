@@ -26,6 +26,21 @@ const testimonials = [
     name: "David K.",
     quote: "Finally, a social app that actually feeds my soul instead of draining it. No doomscrolling, just genuine connection and prayer. Highly recommend.",
     role: "Community Leader"
+  },
+  {
+    name: "Emily W.",
+    quote: "Being able to share my prayer requests anonymously has been so freeing. I don't feel judged, just loved by a community that genuinely cares.",
+    role: "Active Member"
+  },
+  {
+    name: "James T.",
+    quote: "I've tried other prayer apps, but this one feels the most authentic. The focus is purely on prayer and support, nothing else.",
+    role: "Beta Tester"
+  },
+  {
+    name: "Rachel L.",
+    quote: "Pray4Me has helped me build a consistent prayer habit. The notifications are gentle reminders that bring me back to what matters most.",
+    role: "New Member"
   }
 ]
 
@@ -52,11 +67,11 @@ export default function Home() {
   }, [])
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+    setCurrentTestimonial((prev) => (prev + 3) % testimonials.length)
   }
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    setCurrentTestimonial((prev) => (prev - 3 + testimonials.length) % testimonials.length)
   }
 
   const scrollToDownload = () => {
@@ -450,29 +465,31 @@ export default function Home() {
 
               {/* Other testimonials in a column */}
               <div className="lg:col-span-2 flex flex-col space-y-6">
-                {testimonials.filter((_, index) => index !== currentTestimonial).map((testimonial, index) => (
-                  <motion.div
-                    key={`${currentTestimonial}-${index}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-white p-6 rounded-2xl shadow-lg border border-tertiary/50 hover:shadow-xl transition-shadow duration-300"
-                  >
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
+                {[1, 2].map((offset) => {
+                  const index = (currentTestimonial + offset) % testimonials.length
+                  const testimonial = testimonials[index]
+                  return (
+                    <motion.div
+                      key={`${currentTestimonial}-${index}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: offset * 0.1 }}
+                      className="bg-white p-6 rounded-2xl shadow-lg border border-tertiary/50 hover:shadow-xl transition-shadow duration-300"
+                    >
+                      <div className="flex items-start space-x-4">
+
+                        <div className="flex-1">
+                          <blockquote className="text-text mb-3 leading-relaxed">
+                            "{testimonial?.quote}"
+                          </blockquote>
+                          <cite className="text-secondary font-semibold">
+                            — {testimonial?.name}
+                          </cite>
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <blockquote className="text-text mb-3 leading-relaxed">
-                          "{testimonial.quote}"
-                        </blockquote>
-                        <cite className="text-secondary font-semibold">
-                          — {testimonial.name}
-                        </cite>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  )
+                })}
               </div>
             </motion.div>
 
@@ -494,11 +511,11 @@ export default function Home() {
 
             {/* Dots indicator */}
             <div className="flex justify-center mt-6 space-x-2">
-              {testimonials.map((_, index) => (
+              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentTestimonial ? 'bg-primary' : 'bg-tertiary'
+                  onClick={() => setCurrentTestimonial(index * 3)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${Math.floor(currentTestimonial / 3) === index ? 'bg-primary' : 'bg-tertiary'
                     }`}
                 />
               ))}
