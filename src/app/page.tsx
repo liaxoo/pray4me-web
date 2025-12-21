@@ -32,10 +32,23 @@ const testimonials = [
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+  const [blogLoading, setBlogLoading] = useState(true)
   const { openModal, BetaDownloadModal } = useBetaDownloadModal()
 
   useEffect(() => {
-    getLatestPosts(3).then(setBlogPosts)
+    setBlogLoading(true)
+    getLatestPosts(3)
+      .then((posts) => {
+        console.log('Fetched posts:', posts)
+        setBlogPosts(posts)
+      })
+      .catch((error) => {
+        console.error('Error fetching blog posts:', error)
+        setBlogPosts([])
+      })
+      .finally(() => {
+        setBlogLoading(false)
+      })
   }, [])
 
   const nextTestimonial = () => {
@@ -528,56 +541,73 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.slice(0, 3).map((post, index) => {
-              const imageUrl = post.featuredImage
-                ? urlFor(post.featuredImage).width(600).height(400).url()
-                : '/img/blog-placeholder.jpg'
+            {blogLoading ? (
+              // Loading skeleton
+              [1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary h-[400px] animate-pulse">
+                  <div className="h-56 bg-gray-200" />
+                  <div className="p-8">
+                    <div className="h-6 bg-gray-200 rounded mb-3 w-3/4" />
+                    <div className="h-4 bg-gray-200 rounded mb-2" />
+                    <div className="h-4 bg-gray-200 rounded w-5/6" />
+                  </div>
+                </div>
+              ))
+            ) : blogPosts.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <p className="text-secondary text-lg">No blog posts yet. Check back soon!</p>
+              </div>
+            ) : (
+              blogPosts.slice(0, 3).map((post, index) => {
+                const imageUrl = post.featuredImage
+                  ? urlFor(post.featuredImage).width(600).height(400).url()
+                  : '/img/blog-placeholder.jpg'
 
-              const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })
+                const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })
 
-              return (
-                <motion.div
-                  key={post._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Link
-                    href={`/blog/${post.slug.current}`}
-                    className="group block bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                return (
+                  <motion.div
+                    key={post._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
                   >
-                    <div className="relative h-56 overflow-hidden">
-                      <Image
-                        src={imageUrl}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
-                      <div className="absolute bottom-4 left-4 text-white">
-                        <div className="text-sm font-medium mb-1 opacity-90">{formattedDate}</div>
+                    <Link
+                      href={`/blog/${post.slug.current}`}
+                      className="group block bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                    >
+                      <div className="relative h-56 overflow-hidden">
+                        <Image
+                          src={imageUrl}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+                        <div className="absolute bottom-4 left-4 text-white">
+                          <div className="text-sm font-medium mb-1 opacity-90">{formattedDate}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="p-8 flex-1 flex flex-col">
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-secondary line-clamp-3 mb-6 flex-1">
-                        {post.excerpt}
-                      </p>
-                      <span className="text-primary font-semibold flex items-center group-hover:underline mt-auto">
-                        Read Article
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              )
-            })}
+                      <div className="p-8 flex-1 flex flex-col">
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                          {post.title}
+                        </h3>
+                        <p className="text-secondary line-clamp-3 mb-6 flex-1">
+                          {post.excerpt}
+                        </p>
+                        <span className="text-primary font-semibold flex items-center group-hover:underline mt-auto">
+                          Read Article
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.div>
+                )
+              }))}
           </div>
 
           {/* Mobile view all link */}

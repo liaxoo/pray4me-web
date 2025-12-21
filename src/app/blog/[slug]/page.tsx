@@ -1,57 +1,41 @@
-import { notFound } from 'next/navigation'
+'use client'
+
+import { useEffect, useState, useRef } from 'react'
+import { notFound, useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Metadata } from 'next'
 import { ChevronLeft, Calendar, Clock } from 'lucide-react'
-import { getPostBySlug, getAllPostSlugs, urlFor } from '../../../../sanity'
+import { motion } from 'framer-motion'
+import { getPostBySlug, urlFor } from '../../../../sanity'
+import type { BlogPost } from '../../../../sanity/lib/queries'
 import { SanityContent } from '../../../components/SanityContent'
 import Footer from '../../../components/Footer'
 import BlogCTA from '../../../components/BlogCTA'
+import ScrollProgress from '../../../components/ScrollProgress'
 
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-    const slugs = await getAllPostSlugs()
-    return slugs.map((slug) => ({ slug }))
-}
+export default function BlogPostClient() {
+    const params = useParams()
+    const slug = params.slug as string
+    const [post, setPost] = useState<BlogPost | null>(null)
+    const [loading, setLoading] = useState(true)
+    const articleRef = useRef<HTMLElement>(null)
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-    const { slug } = await params
-    const post = await getPostBySlug(slug)
+    useEffect(() => {
+        getPostBySlug(slug)
+            .then(setPost)
+            .catch(() => setPost(null))
+            .finally(() => setLoading(false))
+    }, [slug])
 
-    if (!post) {
-        return {
-            title: 'Post Not Found',
-        }
+    if (loading) {
+        return (
+            <main className="min-h-screen bg-background text-text font-outfit">
+                <div className="h-screen flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+            </main>
+        )
     }
-
-    const metaTitle = post.seo?.metaTitle || post.title
-    const metaDescription = post.seo?.metaDescription || post.excerpt
-    const featuredImageUrl = post.featuredImage
-        ? urlFor(post.featuredImage).width(1200).url()
-        : '/img/blog-placeholder.jpg'
-
-    return {
-        title: `${metaTitle} - Pray4Me Blog`,
-        description: metaDescription,
-        openGraph: {
-            title: metaTitle,
-            description: metaDescription,
-            type: 'article',
-            images: [featuredImageUrl],
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title: metaTitle,
-            description: metaDescription,
-            images: [featuredImageUrl],
-        },
-    }
-}
-
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params
-    const post = await getPostBySlug(slug)
 
     if (!post) {
         notFound()
@@ -67,7 +51,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         day: 'numeric',
     })
 
-    // Estimate reading time (roughly 200 words per minute)
     const wordCount = post.content
         .filter((block: any) => block._type === 'block')
         .reduce((count: number, block: any) => {
@@ -78,8 +61,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
     return (
         <main className="min-h-screen bg-background text-text font-outfit">
+            <ScrollProgress targetRef={articleRef} />
+
             {/* Navigation */}
-            <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-tertiary">
+            <motion.nav
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-tertiary"
+            >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
@@ -96,10 +86,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         </Link>
                     </div>
                 </div>
-            </nav>
+            </motion.nav>
 
             {/* Hero Image */}
-            <div className="relative h-[60vh] min-h-[400px] w-full mt-16">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="relative h-[60vh] min-h-[400px] w-full mt-16"
+            >
                 <Image
                     src={featuredImageUrl}
                     alt={post.title}
@@ -109,7 +104,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 
-                <div className="absolute bottom-0 left-0 w-full p-4 sm:p-8 pb-12">
+                <motion.div
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="absolute bottom-0 left-0 w-full p-4 sm:p-8 pb-12"
+                >
                     <div className="max-w-4xl mx-auto">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md">
                             {post.title}
@@ -125,12 +125,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
             {/* Content */}
-            <article className="py-16 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mx-auto">
+            <article ref={articleRef} className="py-16 px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="max-w-3xl mx-auto"
+                >
                     <div className="prose prose-lg prose-p:text-secondary prose-headings:text-text prose-a:text-primary hover:prose-a:text-primary/80 max-w-none">
                         <SanityContent content={post.content} />
                     </div>
@@ -138,7 +143,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <hr className="my-12 border-tertiary" />
 
                     <BlogCTA />
-                </div>
+                </motion.div>
             </article>
 
             <Footer />
