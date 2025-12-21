@@ -1,31 +1,42 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Download, ChevronLeft, ChevronRight, X, Check } from 'lucide-react'
+import Link from 'next/link'
+import { Download, ChevronLeft, ChevronRight, X, Check, ArrowRight } from 'lucide-react'
 import Footer from '../components/Footer'
 import { useBetaDownloadModal } from '../components/BetaDownloadModal'
+import { getLatestPosts, urlFor } from '../../sanity'
+import type { BlogPost } from '../../sanity/lib/queries'
 
 const testimonials = [
   {
-    name: "Sarah M",
-    quote: "Pray4Me has transformed the way I think about faith and connection. Highly recommend!",
+    name: "Sarah J.",
+    quote: "I used to feel so alone in my struggles. Opening this app and seeing that 15 people prayed for me today... it changes everything. I feel seen and supported.",
+    role: "Daily User",
     featured: true
   },
   {
-    name: "Michael T.",
-    quote: "Pray4Me has completely changed my daily routine. Starting my mornings with prayer and encouragement sets a positive tone for my whole day."
+    name: "Michael R.",
+    quote: "The interface is so clean and peaceful. I love that I can quickly pray for others during my commute. It's become my favorite way to start the morning.",
+    role: "Premium Member"
   },
   {
-    name: "Emma R.",
-    quote: "I've tried many prayer apps, but Pray4Me stands out with its personalized prompts and welcoming design. It feels like it was made just for me."
+    name: "David K.",
+    quote: "Finally, a social app that actually feeds my soul instead of draining it. No doomscrolling, just genuine connection and prayer. Highly recommend.",
+    role: "Community Leader"
   }
 ]
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
   const { openModal, BetaDownloadModal } = useBetaDownloadModal()
+
+  useEffect(() => {
+    getLatestPosts(3).then(setBlogPosts)
+  }, [])
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
@@ -45,7 +56,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background text-text overflow-x-hidden">
       {/* Navigation */}
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -58,8 +69,14 @@ export default function Home() {
               <span className="text-xl font-bold">Pray4Me</span>
             </div>
 
-            <div className="flex items-center">
-              <button 
+            <div className="flex items-center space-x-4">
+              <Link
+                href="/blog"
+                className="text-text hover:text-primary transition-colors font-medium"
+              >
+                Blog
+              </Link>
+              <button
                 onClick={scrollToDownload}
                 className="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors"
               >
@@ -76,7 +93,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/25"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 via-transparent to-primary/20"></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-primary/15 via-transparent to-secondary/20"></div>
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -89,11 +106,11 @@ export default function Home() {
                 Stop scrolling.<br />
                 <span className="text-primary">Pray</span> for others.
               </h1>
-              
+
               <p className="text-xl md:text-2xl text-secondary mb-8 max-w-lg">
                 You don't need much time. 5 minutes a day is plenty, and it can help someone in need.
               </p>
-              
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -113,45 +130,45 @@ export default function Home() {
               <div className="relative">
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
-                  transition={{ 
-                    duration: 5, 
-                    repeat: Infinity, 
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
                     ease: [0.4, 0, 0.6, 1],
                     repeatType: "reverse"
                   }}
                   className="flex justify-center"
                 >
-                  <Image 
-                    src="/img/screenshot.jpg" 
-                    alt="Pray4Me App Screenshot" 
-                    width={300} 
-                    height={600} 
-                    className="rounded-3xl shadow-2xl mx-auto"
+                  <Image
+                    src="/img/single.png"
+                    alt="Pray4Me App Screenshot"
+                    width={320}
+                    height={640}
+                    className="w-auto h-auto max-h-[600px] drop-shadow-2xl mx-auto"
                   />
                 </motion.div>
-                
+
                 {/* Floating elements */}
                 <motion.div
-                  animate={{ 
+                  animate={{
                     rotate: [0, 360],
                     y: [0, -10, 0],
                     x: [0, 5, 0]
                   }}
-                  transition={{ 
+                  transition={{
                     rotate: { duration: 20, repeat: Infinity, ease: "linear" },
                     y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                     x: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }
                   }}
                   className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full opacity-30"
                 ></motion.div>
-                
+
                 <motion.div
                   animate={{ y: [0, -15, 0], x: [0, -8, 0] }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut", 
-                    delay: 1 
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
                   }}
                   className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full opacity-40"
                 ></motion.div>
@@ -161,10 +178,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - HIDDEN
       <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-tertiary/30 relative">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent"></div>
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -177,7 +194,7 @@ export default function Home() {
                 A platform for<br />
                 <span className="text-primary">believers.</span>
               </h2>
-              
+
               <p className="text-lg text-secondary mb-12 leading-relaxed">
                 Pray4Me is a Christian prayer platform where believers pray for strangers around the world. We believe in the power of prayer and lifting up others during their darkest moments. Pray4Me connects believers from all countries and Christian denominations, creating a truly global prayer community.
               </p>
@@ -235,6 +252,7 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      */}
 
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -467,12 +485,110 @@ export default function Home() {
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentTestimonial ? 'bg-primary' : 'bg-tertiary'
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentTestimonial ? 'bg-primary' : 'bg-tertiary'
+                    }`}
                 />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-tertiary/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Latest Updates</h2>
+              <p className="text-xl text-secondary max-w-xl">
+                Read our latest stories, guides, and community updates.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="hidden md:block" // Hide on mobile, show on desktop
+            >
+              <Link
+                href="/blog"
+                className="group flex items-center space-x-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+              >
+                <span>View all posts</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.slice(0, 3).map((post, index) => {
+              const imageUrl = post.featuredImage
+                ? urlFor(post.featuredImage).width(600).height(400).url()
+                : '/img/blog-placeholder.jpg'
+
+              const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })
+
+              return (
+                <motion.div
+                  key={post._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Link
+                    href={`/blog/${post.slug.current}`}
+                    className="group block bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                  >
+                    <div className="relative h-56 overflow-hidden">
+                      <Image
+                        src={imageUrl}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+                      <div className="absolute bottom-4 left-4 text-white">
+                        <div className="text-sm font-medium mb-1 opacity-90">{formattedDate}</div>
+                      </div>
+                    </div>
+                    <div className="p-8 flex-1 flex flex-col">
+                      <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-secondary line-clamp-3 mb-6 flex-1">
+                        {post.excerpt}
+                      </p>
+                      <span className="text-primary font-semibold flex items-center group-hover:underline mt-auto">
+                        Read Article
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* Mobile view all link */}
+          <div className="md:hidden mt-8 text-center">
+            <Link
+              href="/blog"
+              className="group inline-flex items-center space-x-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+            >
+              <span>View all posts</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
       </section>
@@ -482,7 +598,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-50"></div>
         </div>
-        
+
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -493,7 +609,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Get started for free
             </h2>
-            
+
             <p className="text-xl text-secondary mb-12">
               You don't need a subscription to use Pray4Me.
             </p>
@@ -510,7 +626,7 @@ export default function Home() {
                 <Download className="w-5 h-5" />
                 <span>App Store</span>
               </motion.a>
-              
+
               <motion.a
                 href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme"
                 target="_blank"
@@ -522,7 +638,7 @@ export default function Home() {
                 <Download className="w-5 h-5" />
                 <span>Google Play</span>
               </motion.a>
-              
+
 
             </div>
 
@@ -540,41 +656,41 @@ export default function Home() {
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                   className="relative flex-shrink-0 sm:-mr-8 z-10 order-1 sm:order-1"
                 >
-                  <Image 
-                    src="/img/imageOne.png" 
-                    alt="Prayer moment" 
-                    width={180} 
-                    height={270} 
+                  <Image
+                    src="/img/imageOne.png"
+                    alt="Prayer moment"
+                    width={180}
+                    height={270}
                     className="rounded-2xl shadow-xl transform rotate-[-8deg] hover:rotate-[-4deg] transition-transform duration-300"
                   />
                 </motion.div>
-                
+
                 {/* Center image - highest z-index */}
                 <motion.div
                   animate={{ y: [0, -12, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                   className="relative z-20 flex-shrink-0 order-2 sm:order-2"
                 >
-                  <Image 
-                    src="/img/imageTwo.png" 
-                    alt="Community prayer" 
-                    width={220} 
-                    height={330} 
+                  <Image
+                    src="/img/imageTwo.png"
+                    alt="Community prayer"
+                    width={220}
+                    height={330}
                     className="rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300"
                   />
                 </motion.div>
-                
+
                 {/* Right image */}
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                   className="relative flex-shrink-0 sm:-ml-8 z-10 order-3 sm:order-3"
                 >
-                  <Image 
-                    src="/img/imageThree.png" 
-                    alt="Faith gathering" 
-                    width={180} 
-                    height={270} 
+                  <Image
+                    src="/img/imageThree.png"
+                    alt="Faith gathering"
+                    width={180}
+                    height={270}
                     className="rounded-2xl shadow-xl transform rotate-[8deg] hover:rotate-[4deg] transition-transform duration-300"
                   />
                 </motion.div>
