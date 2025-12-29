@@ -1,41 +1,40 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 // 1. FETCH METADATA (Server Side)
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const id = params.id
+// This runs on the server, so it's perfect for fetching dynamic data for Open Graph tags.
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params
 
-    // OPTIONAL: Fetch prayer details from Supabase
-    // const prayer = await supabase.from('prayers').select('title, user:users(name)').eq('id', id).single()
-    // const title = prayer?.title || "a prayer request"
-    // const userName = prayer?.user?.name || "Someone"
+    // OPTIONAL: Fetch user name from Supabase here
+    // const user = await supabase.from('users').select('name').eq('id', id).single()
+    // const name = user?.name || 'Someone'
+    const name = "a friend"
 
-    const title = "a prayer request"
-    const userName = "Someone"
-
-    const appScheme = process.env.NEXT_PUBLIC_APP_SCHEME || 'pray4me'
+    const image = process.env.NEXT_PUBLIC_DEFAULT_OG_IMAGE || 'https://pray4me.app/default-og.png'
 
     return {
         title: `Pray using Pray4Me`,
-        description: `Join ${userName} in prayer: "${title}"`,
+        description: `Join ${name} in prayer on the Pray4Me app.`,
         openGraph: {
-            title: `Pray for ${userName}`,
-            description: `Join ${userName} in prayer: "${title}"`,
-            images: [process.env.NEXT_PUBLIC_DEFAULT_OG_IMAGE || 'https://pray4me.app/default-og.png'],
+            title: `Pray for ${name}`,
+            description: `Join ${name} in prayer.`,
+            images: [image],
         },
+        // Important for iOS Universal Links
         appleWebApp: {
             title: 'Pray4Me'
         }
     }
 }
 
-export default function Page({ params }: { params: { id: string } }) {
-    const id = params.id
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
     const appScheme = process.env.NEXT_PUBLIC_APP_SCHEME || 'pray4me'
     const appStoreId = process.env.NEXT_PUBLIC_APP_STORE_ID || 'YOUR_APP_ID'
 
     // Deep link for a specific prayer
     const appDeepLink = `${appScheme}://prayer/${id}`
-    const fallbackUrl = `https://apps.apple.com/app/id${appStoreId}`
+    const fallbackUrl = `https://apps.apple.com/app/id${appStoreId}` // Fallback to App Store
 
     return (
         <div style={{
@@ -49,11 +48,14 @@ export default function Page({ params }: { params: { id: string } }) {
             <h1>Opening Pray4Me...</h1>
             <p>If the app doesn't open, <a href={appDeepLink}>click here</a>.</p>
 
+            {/* Automatic Client-Side Redirect */}
             <script dangerouslySetInnerHTML={{
                 __html: `
         window.location.href = "${appDeepLink}";
         setTimeout(function() {
-            window.location.href = "${fallbackUrl}";
+            // If the user is still here after 2 seconds, maybe they don't have the app.
+            // Redirect to App Store? Or just stay here.
+            // window.location.href = "${fallbackUrl}";
         }, 2000);
       `}} />
         </div>

@@ -1,9 +1,9 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 // 1. FETCH METADATA (Server Side)
 // This runs on the server, so it's perfect for fetching dynamic data for Open Graph tags.
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const id = params.id
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params
 
     // OPTIONAL: Fetch user name from Supabase here
     // const user = await supabase.from('users').select('name').eq('id', id).single()
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     }
 }
 
-export default function Page({ params }: { params: { id: string } }) {
-    const id = params.id
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
     const appScheme = process.env.NEXT_PUBLIC_APP_SCHEME || 'pray4me'
     const appStoreId = process.env.NEXT_PUBLIC_APP_STORE_ID || 'YOUR_APP_ID'
 
