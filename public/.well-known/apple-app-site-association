@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "5ZTARFVF85.com.liaxo.prayforme",
+        "paths": [
+          "/u/*",
+          "/p/*"
+        ]
+      }
+    ]
+  }
+}
