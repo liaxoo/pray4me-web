@@ -7,7 +7,8 @@
             "namespace": "android_app",
             "package_name": "com.liaxo.prayforme",
             "sha256_cert_fingerprints": [
-                "AC:2E:5E:E8:86:4E:B7:59:9D:0C:CC:7F:20:9F:3C:BB:41:A0:06:6B:F7:22:4D:24:18:59:10:BB:08:3D:C1:4A"
+                "AC:2E:5E:E8:86:4E:B7:59:9D:0C:CC:7F:20:9F:3C:BB:41:A0:06:6B:F7:22:4D:24:18:59:10:BB:08:3D:C1:4A",
+                "53:AD:B1:B1:5D:EF:C4:B2:5E:44:C4:E4:2D:BA:F9:17:B0:0C:81:22:1B:DE:3B:77:83:9B:44:2F:11:A4:A2:69"
             ]
         }
     }
