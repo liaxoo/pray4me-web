@@ -56,10 +56,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 __html: `
         window.location.href = "${appDeepLink}";
         setTimeout(function() {
-            // If the user is still here after 2 seconds, maybe they don't have the app.
-            // Redirect to App Store? Or just stay here.
-            // window.location.href = "${fallbackUrl}";
-        }, 2000);
+            // If the user is still here after 5 seconds, they likely don't have the app.
+            // Increased timeout for Android compatibility to allow system prompts to appear.
+            window.location.href = "/";
+        }, 5000);
       `}} />
         </div>
     )
