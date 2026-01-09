@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -7,25 +5,23 @@ import { getAllPosts, urlFor } from '../../../sanity'
 import type { BlogPost } from '../../../sanity/lib/queries'
 import Footer from '../../components/Footer'
 import { ChevronLeft } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import type { Metadata } from 'next'
 
-export default function BlogIndex() {
-    const [posts, setPosts] = useState<BlogPost[]>([])
-    const [loading, setLoading] = useState(true)
+export const metadata: Metadata = {
+    title: 'Blog | Pray4Me',
+    description: 'Insights on prayer, community, and faith from the Pray4Me team.',
+    alternates: {
+        canonical: '/blog',
+    },
+}
 
-    useEffect(() => {
-        getAllPosts()
-            .then(setPosts)
-            .finally(() => setLoading(false))
-    }, [])
+export default async function BlogIndex() {
+    const posts = await getAllPosts()
 
     return (
         <main className="min-h-screen bg-background text-text font-outfit">
             {/* Navigation */}
-            <motion.nav
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5 }}
+            <nav
                 className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-tertiary"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,13 +40,10 @@ export default function BlogIndex() {
                         </Link>
                     </div>
                 </div>
-            </motion.nav>
+            </nav>
 
             {/* Header */}
-            <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+            <section
                 className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-tertiary/30"
             >
                 <div className="max-w-7xl mx-auto text-center">
@@ -59,83 +52,64 @@ export default function BlogIndex() {
                         Insights on prayer, community, and faith.
                     </p>
                 </div>
-            </motion.section>
+            </section>
 
             {/* Blog Grid */}
             <section className="py-20 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {loading ? (
-                            // Loading skeletons
-                            [1, 2, 3, 4, 5, 6].map((i) => (
-                                <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary h-[450px] animate-pulse">
-                                    <div className="h-64 bg-gray-200" />
-                                    <div className="p-8">
-                                        <div className="h-6 bg-gray-200 rounded mb-3 w-3/4" />
-                                        <div className="h-4 bg-gray-200 rounded mb-2" />
-                                        <div className="h-4 bg-gray-200 rounded w-5/6" />
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            posts.map((post, index) => {
-                                const imageUrl = post.featuredImage
-                                    ? urlFor(post.featuredImage).width(600).height(400).url()
-                                    : '/img/blog-placeholder.jpg'
+                        {posts.map((post, index) => {
+                            const imageUrl = post.featuredImage
+                                ? urlFor(post.featuredImage).width(600).height(400).url()
+                                : '/img/blog-placeholder.jpg'
 
-                                const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                })
-
-                                const wordCount = post.content
-                                    ?.filter((block: any) => block._type === 'block')
-                                    .reduce((count: number, block: any) => {
-                                        const text = block.children?.map((child: any) => child.text).join(' ') || ''
-                                        return count + text.split(' ').length
-                                    }, 0) || 0
-                                const readingTime = `${Math.max(1, Math.ceil(wordCount / 200))} min read`
-
-                                return (
-                                    <motion.div
-                                        key={post._id}
-                                        initial={{ opacity: 0, y: 30 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    >
-                                        <Link
-                                            href={`/blog/${post.slug.current}`}
-                                            className="group bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block"
-                                        >
-                                            <div className="relative h-64 overflow-hidden">
-                                                <Image
-                                                    src={imageUrl}
-                                                    alt={post.title}
-                                                    fill
-                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
-                                                <div className="absolute bottom-4 left-4 text-white">
-                                                    <div className="text-sm font-medium mb-1 opacity-90">{formattedDate} • {readingTime}</div>
-                                                </div>
-                                            </div>
-                                            <div className="p-8">
-                                                <h2 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                                                    {post.title}
-                                                </h2>
-                                                <p className="text-secondary line-clamp-3 mb-6">
-                                                    {post.excerpt}
-                                                </p>
-                                                <span className="text-primary font-semibold flex items-center group-hover:underline">
-                                                    Read Article
-                                                </span>
-                                            </div>
-                                        </Link>
-                                    </motion.div>
-                                )
+                            const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
                             })
-                        )}
+
+                            const wordCount = post.content
+                                ?.filter((block: any) => block._type === 'block')
+                                .reduce((count: number, block: any) => {
+                                    const text = block.children?.map((child: any) => child.text).join(' ') || ''
+                                    return count + text.split(' ').length
+                                }, 0) || 0
+                            const readingTime = `${Math.max(1, Math.ceil(wordCount / 200))} min read`
+
+                            return (
+                                <div key={post._id}>
+                                    <Link
+                                        href={`/blog/${post.slug.current}`}
+                                        className="group bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block"
+                                    >
+                                        <div className="relative h-64 overflow-hidden">
+                                            <Image
+                                                src={imageUrl}
+                                                alt={post.title}
+                                                fill
+                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+                                            <div className="absolute bottom-4 left-4 text-white">
+                                                <div className="text-sm font-medium mb-1 opacity-90">{formattedDate} • {readingTime}</div>
+                                            </div>
+                                        </div>
+                                        <div className="p-8">
+                                            <h2 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                                                {post.title}
+                                            </h2>
+                                            <p className="text-secondary line-clamp-3 mb-6">
+                                                {post.excerpt}
+                                            </p>
+                                            <span className="text-primary font-semibold flex items-center group-hover:underline">
+                                                Read Article
+                                            </span>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </section>
@@ -144,3 +118,4 @@ export default function BlogIndex() {
         </main>
     )
 }
+

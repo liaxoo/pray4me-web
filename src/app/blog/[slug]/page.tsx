@@ -1,41 +1,48 @@
-'use client'
-
-import { useEffect, useState, useRef } from 'react'
-import { notFound, useParams } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronLeft, Calendar, Clock } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { getPostBySlug, urlFor } from '../../../../sanity'
 import type { BlogPost } from '../../../../sanity/lib/queries'
 import { SanityContent } from '../../../components/SanityContent'
 import Footer from '../../../components/Footer'
 import BlogCTA from '../../../components/BlogCTA'
 import ScrollProgress from '../../../components/ScrollProgress'
+import type { Metadata } from 'next'
 
-export default function BlogPostClient() {
-    const params = useParams()
-    const slug = params.slug as string
-    const [post, setPost] = useState<BlogPost | null>(null)
-    const [loading, setLoading] = useState(true)
-    const articleRef = useRef<HTMLElement>(null)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params
+    const post = await getPostBySlug(slug)
 
-    useEffect(() => {
-        getPostBySlug(slug)
-            .then(setPost)
-            .catch(() => setPost(null))
-            .finally(() => setLoading(false))
-    }, [slug])
-
-    if (loading) {
-        return (
-            <main className="min-h-screen bg-background text-text font-outfit">
-                <div className="h-screen flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                </div>
-            </main>
-        )
+    if (!post) {
+        return {
+            title: 'Post Not Found',
+        }
     }
+
+    const featuredImageUrl = post.featuredImage
+        ? urlFor(post.featuredImage).width(1200).height(600).url()
+        : 'https://pray4me.app/img/blog-placeholder.jpg'
+
+    return {
+        title: `${post.title} | Pray4Me Blog`,
+        description: post.excerpt,
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            images: [featuredImageUrl],
+            type: 'article',
+            publishedTime: post.publishedAt,
+        },
+        alternates: {
+            canonical: `/blog/${slug}`,
+        },
+    }
+}
+
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params
+    const post = await getPostBySlug(slug)
 
     if (!post) {
         notFound()
@@ -61,13 +68,10 @@ export default function BlogPostClient() {
 
     return (
         <main className="min-h-screen bg-background text-text font-outfit">
-            <ScrollProgress targetRef={articleRef} />
+            <ScrollProgress />
 
             {/* Navigation */}
-            <motion.nav
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5 }}
+            <nav
                 className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-tertiary"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,13 +90,10 @@ export default function BlogPostClient() {
                         </Link>
                     </div>
                 </div>
-            </motion.nav>
+            </nav>
 
             {/* Hero Image */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
+            <div
                 className="relative h-[60vh] min-h-[400px] w-full mt-16"
             >
                 <Image
@@ -104,10 +105,7 @@ export default function BlogPostClient() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 
-                <motion.div
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                <div
                     className="absolute bottom-0 left-0 w-full p-4 sm:p-8 pb-12"
                 >
                     <div className="max-w-4xl mx-auto">
@@ -125,15 +123,12 @@ export default function BlogPostClient() {
                             </div>
                         </div>
                     </div>
-                </motion.div>
-            </motion.div>
+                </div>
+            </div>
 
             {/* Content */}
-            <article ref={articleRef} className="py-16 px-4 sm:px-6 lg:px-8">
-                <motion.div
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
+            <article className="py-16 px-4 sm:px-6 lg:px-8">
+                <div
                     className="max-w-3xl mx-auto"
                 >
                     <div className="prose prose-lg prose-p:text-secondary prose-headings:text-text prose-a:text-primary hover:prose-a:text-primary/80 max-w-none">
@@ -143,10 +138,11 @@ export default function BlogPostClient() {
                     <hr className="my-12 border-tertiary" />
 
                     <BlogCTA />
-                </motion.div>
+                </div>
             </article>
 
             <Footer />
         </main>
     )
 }
+

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /.well-known/
+
+Sitemap: https://pray4me.app/sitemap.xml

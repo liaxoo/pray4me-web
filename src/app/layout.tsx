@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://pray4me.app'),
   title: 'Pray4Me - Global Prayer Community',
   description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
   keywords: 'prayer, community, faith, spiritual, help, support, christian, global',
@@ -20,7 +21,11 @@ export const metadata: Metadata = {
     title: 'Pray4Me - Global Prayer Community',
     description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
   },
+  alternates: {
+    canonical: '/',
+  },
 }
+
 
 export default function RootLayout({
   children,
