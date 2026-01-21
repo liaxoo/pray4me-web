@@ -141,6 +141,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
             </article>
 
+            <section>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'BlogPosting',
+                            headline: post.title,
+                            image: [featuredImageUrl],
+                            datePublished: post.publishedAt,
+                            dateModified: post.publishedAt,
+                            author: [{
+                                '@type': 'Organization',
+                                name: 'Pray4Me Team',
+                                url: 'https://pray4me.app'
+                            }],
+                        })
+                    }}
+                />
+            </section>
+
             <Footer />
         </main>
     )

@@ -23,6 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         // Important for iOS Universal Links
         appleWebApp: {
             title: 'Pray4Me'
+        },
+        alternates: {
+            canonical: `/u/${id}`,
         }
     }
 }

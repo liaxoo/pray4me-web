@@ -13,6 +13,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pray4Me - Global Prayer Community',
     description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
+    url: 'https://pray4me.app',
+    siteName: 'Pray4Me',
+    images: [
+      {
+        url: 'https://pray4me.app/og-image.png', // Ensure this image exists in public folder
+        width: 1200,
+        height: 630,
+      },
+    ],
     type: 'website',
     locale: 'en_US',
   },
@@ -20,10 +29,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Pray4Me - Global Prayer Community',
     description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
+    images: ['https://pray4me.app/og-image.png'],
   },
-  alternates: {
-    canonical: '/',
-  },
+
 }
 
 

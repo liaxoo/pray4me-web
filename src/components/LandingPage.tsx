@@ -1,0 +1,631 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Download, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import Footer from './Footer'
+import { useBetaDownloadModal } from './BetaDownloadModal'
+import { getLatestPosts, urlFor } from '../../sanity'
+import type { BlogPost } from '../../sanity/lib/queries'
+
+const testimonials = [
+    {
+        name: "Sarah J.",
+        quote: "I used to feel so alone in my struggles. Opening this app and seeing that 15 people prayed for me today... it changes everything. I feel seen and supported.",
+        role: "Daily User",
+        featured: true
+    },
+    {
+        name: "Michael R.",
+        quote: "The interface is so clean and peaceful. I love that I can quickly pray for others during my commute. It's become my favorite way to start the morning.",
+        role: "Premium Member"
+    },
+    {
+        name: "David K.",
+        quote: "Finally, a social app that actually feeds my soul instead of draining it. No doomscrolling, just genuine connection and prayer. Highly recommend.",
+        role: "Community Leader"
+    },
+    {
+        name: "Emily W.",
+        quote: "Being able to share my prayer requests anonymously has been so freeing. I don't feel judged, just loved by a community that genuinely cares.",
+        role: "Active Member"
+    },
+    {
+        name: "James T.",
+        quote: "I've tried other prayer apps, but this one feels the most authentic. The focus is purely on prayer and support, nothing else.",
+        role: "Beta Tester"
+    },
+    {
+        name: "Rachel L.",
+        quote: "Pray4Me has helped me build a consistent prayer habit. The notifications are gentle reminders that bring me back to what matters most.",
+        role: "New Member"
+    }
+]
+
+export default function LandingPage() {
+    const [currentTestimonial, setCurrentTestimonial] = useState(0)
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+    const [blogLoading, setBlogLoading] = useState(true)
+    const { openModal, BetaDownloadModal } = useBetaDownloadModal()
+
+    useEffect(() => {
+        setBlogLoading(true)
+        getLatestPosts(3)
+            .then((posts) => {
+                console.log('Fetched posts:', posts)
+                setBlogPosts(posts)
+            })
+            .catch((error) => {
+                console.error('Error fetching blog posts:', error)
+                setBlogPosts([])
+            })
+            .finally(() => {
+                setBlogLoading(false)
+            })
+    }, [])
+
+    const nextTestimonial = () => {
+        setCurrentTestimonial((prev) => (prev + 3) % testimonials.length)
+    }
+
+    const prevTestimonial = () => {
+        setCurrentTestimonial((prev) => (prev - 3 + testimonials.length) % testimonials.length)
+    }
+
+    const scrollToDownload = () => {
+        const downloadSection = document.getElementById('download-section')
+        if (downloadSection) {
+            downloadSection.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
+
+    return (
+        <main className="min-h-screen bg-background text-text overflow-x-hidden">
+            {/* Navigation */}
+            <motion.nav
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-tertiary"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-center h-16">
+                        <div className="flex items-center space-x-3">
+                            <Image src="/img/logo.svg" alt="Pray4Me Logo" width={40} height={40} />
+                            <span className="text-xl font-bold">Pray4Me</span>
+                        </div>
+
+                        <div className="flex items-center space-x-4">
+                            <Link
+                                href="/blog"
+                                className="text-text hover:text-primary transition-colors font-medium"
+                            >
+                                Blog
+                            </Link>
+                            <button
+                                onClick={scrollToDownload}
+                                className="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors"
+                            >
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </motion.nav>
+
+            {/* Hero Section */}
+            <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center relative overflow-hidden">
+                {/* More intense gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/15 to-primary/25"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 via-transparent to-primary/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-bl from-primary/15 via-transparent to-secondary/20"></div>
+
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <motion.div
+                            initial={{ x: -100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="text-center lg:text-left"
+                        >
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                                Stop scrolling.<br />
+                                <span className="text-primary">Pray</span> for others.
+                            </h1>
+
+                            <p className="text-xl md:text-2xl text-secondary mb-8 max-w-lg">
+                                You don't need much time. 5 minutes a day is plenty, and it can help someone in need.
+                            </p>
+
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={scrollToDownload}
+                                className="bg-text text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-text/90 transition-all duration-300 shadow-lg"
+                            >
+                                Download
+                            </motion.button>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ x: 100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            className="relative flex justify-center"
+                        >
+                            <div className="relative">
+                                <motion.div
+                                    animate={{ y: [0, -6, 0] }}
+                                    transition={{
+                                        duration: 5,
+                                        repeat: Infinity,
+                                        ease: [0.4, 0, 0.6, 1],
+                                        repeatType: "reverse"
+                                    }}
+                                    className="flex justify-center"
+                                >
+                                    <Image
+                                        src="/img/single.png"
+                                        alt="Pray4Me App Screenshot"
+                                        width={320}
+                                        height={640}
+                                        className="w-auto h-auto max-h-[600px] drop-shadow-2xl mx-auto"
+                                    />
+                                </motion.div>
+
+                                {/* Floating elements */}
+                                <motion.div
+                                    animate={{
+                                        rotate: [0, 360],
+                                        y: [0, -10, 0],
+                                        x: [0, 5, 0]
+                                    }}
+                                    transition={{
+                                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                                        y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                                        x: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }
+                                    }}
+                                    className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full opacity-30"
+                                ></motion.div>
+
+                                <motion.div
+                                    animate={{ y: [0, -15, 0], x: [0, -8, 0] }}
+                                    transition={{
+                                        duration: 4,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        delay: 1
+                                    }}
+                                    className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full opacity-40"
+                                ></motion.div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Features Section */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                    <motion.h2
+                        initial={{ y: 50, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-5xl font-bold text-center mb-16"
+                    >
+                        Features
+                    </motion.h2>
+
+                    <div className="grid md:grid-cols-3 gap-8 md:items-stretch">
+                        {/* Prayer Streaks */}
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.1 }}
+                            viewport={{ once: true }}
+                            className="bg-gradient-to-br from-primary/10 to-secondary/10 p-8 rounded-3xl text-center flex flex-col justify-between h-full"
+                        >
+                            <div>
+                                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-3xl">🔥</span>
+                                </div>
+                                <h3 className="text-2xl font-bold mb-4">Prayer Streaks</h3>
+                                <p className="text-secondary mb-6">
+                                    Build a consistent habit of daily prayer. Streaks help develop the discipline of intercession, turning moments of prayer into a lifelong practice of faith.
+                                </p>
+                            </div>
+                            <div className="bg-white/50 rounded-2xl p-4 flex items-center justify-center min-h-[80px]">
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-primary">7</div>
+                                    <div className="text-sm text-secondary">Day Streak</div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Anonymous Prayers */}
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true }}
+                            className="bg-gradient-to-br from-secondary/10 to-primary/10 p-8 rounded-3xl text-center flex flex-col justify-between h-full"
+                        >
+                            <div>
+                                <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-3xl">🤝</span>
+                                </div>
+                                <h3 className="text-2xl font-bold mb-4">Anonymous Requests</h3>
+                                <p className="text-secondary mb-6">
+                                    Optionally pray for strangers around the world without knowing who they are. Pure, selfless intercession for those facing real struggles and challenges.
+                                </p>
+                            </div>
+                            <div className="bg-white/50 rounded-2xl p-4 flex items-center justify-center min-h-[80px]">
+                                <div className="text-center">
+                                    <div className="text-sm font-semibold text-text">Someone needs prayer for</div>
+                                    <div className="text-sm text-secondary">"Financial struggles"</div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Prayer Reminders */}
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.3 }}
+                            viewport={{ once: true }}
+                            className="bg-gradient-to-br from-primary/10 to-secondary/10 p-8 rounded-3xl text-center flex flex-col justify-between h-full"
+                        >
+                            <div>
+                                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-3xl">🔔</span>
+                                </div>
+                                <h3 className="text-2xl font-bold mb-4">Gentle Reminders</h3>
+                                <p className="text-secondary mb-6">
+                                    Receive thoughtful notifications when someone needs prayer or when believers have prayed for you. Stay connected without being overwhelmed.
+                                </p>
+                            </div>
+                            <div className="bg-white/50 rounded-2xl p-4 flex items-center justify-center min-h-[80px]">
+                                <div className="text-center">
+                                    <div className="text-sm font-semibold text-text">23 believers prayed for you</div>
+                                    <div className="text-sm text-secondary">Strangers are lifting you up</div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+
+                    </div>
+                </div>
+            </section>
+
+            {/* Testimonials Section */}
+            <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                    <motion.h2
+                        initial={{ y: 50, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-5xl font-bold text-center mb-16"
+                    >
+                        Hear it from our users
+                    </motion.h2>
+
+                    <div className="relative max-w-6xl mx-auto">
+                        <motion.div
+                            key={currentTestimonial}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="grid lg:grid-cols-3 gap-8 lg:items-stretch"
+                        >
+                            {/* Featured testimonial with image */}
+                            <div className="lg:col-span-1 flex">
+                                <div className="relative w-full">
+                                    <div className="gradient-bg p-8 rounded-3xl text-white relative overflow-hidden h-full flex flex-col justify-center">
+                                        <blockquote className="text-lg md:text-xl font-medium mb-6 relative z-10">
+                                            "{testimonials[currentTestimonial]?.quote}"
+                                        </blockquote>
+                                        <cite className="text-white/90 font-semibold relative z-10">
+                                            {testimonials[currentTestimonial]?.name}
+                                        </cite>
+                                        {/* Background pattern */}
+                                        <div className="absolute inset-0 opacity-10">
+                                            <div className="absolute top-4 right-4 w-32 h-32 rounded-full bg-white/20"></div>
+                                            <div className="absolute bottom-4 left-4 w-20 h-20 rounded-full bg-white/10"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Other testimonials in a column */}
+                            <div className="lg:col-span-2 flex flex-col space-y-6">
+                                {[1, 2].map((offset) => {
+                                    const index = (currentTestimonial + offset) % testimonials.length
+                                    const testimonial = testimonials[index]
+                                    return (
+                                        <motion.div
+                                            key={`${currentTestimonial}-${index}`}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.5, delay: offset * 0.1 }}
+                                            className="bg-white p-6 rounded-2xl shadow-lg border border-tertiary/50 hover:shadow-xl transition-shadow duration-300"
+                                        >
+                                            <div className="flex items-start space-x-4">
+
+                                                <div className="flex-1">
+                                                    <blockquote className="text-text mb-3 leading-relaxed">
+                                                        "{testimonial?.quote}"
+                                                    </blockquote>
+                                                    <cite className="text-secondary font-semibold">
+                                                        — {testimonial?.name}
+                                                    </cite>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )
+                                })}
+                            </div>
+                        </motion.div>
+
+                        {/* Navigation buttons */}
+                        <div className="flex justify-center mt-12 space-x-4">
+                            <button
+                                onClick={prevTestimonial}
+                                className="p-3 rounded-full bg-white shadow-lg hover:bg-primary hover:text-white transition-all duration-300 border border-tertiary"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
+                            <button
+                                onClick={nextTestimonial}
+                                className="p-3 rounded-full bg-white shadow-lg hover:bg-primary hover:text-white transition-all duration-300 border border-tertiary"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Dots indicator */}
+                        <div className="flex justify-center mt-6 space-x-2">
+                            {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentTestimonial(index * 3)}
+                                    className={`w-3 h-3 rounded-full transition-all duration-300 ${Math.floor(currentTestimonial / 3) === index ? 'bg-primary' : 'bg-tertiary'
+                                        }`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Blog Section */}
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-tertiary/30">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
+                            <h2 className="text-4xl md:text-5xl font-bold mb-4">Latest Updates</h2>
+                            <p className="text-xl text-secondary max-w-xl">
+                                Read our latest stories, guides, and community updates.
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                            className="hidden md:block" // Hide on mobile, show on desktop
+                        >
+                            <Link
+                                href="/blog"
+                                className="group flex items-center space-x-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+                            >
+                                <span>View all posts</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </motion.div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {blogLoading ? (
+                            // Loading skeleton
+                            [1, 2, 3].map((i) => (
+                                <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary h-[400px] animate-pulse">
+                                    <div className="h-56 bg-gray-200" />
+                                    <div className="p-8">
+                                        <div className="h-6 bg-gray-200 rounded mb-3 w-3/4" />
+                                        <div className="h-4 bg-gray-200 rounded mb-2" />
+                                        <div className="h-4 bg-gray-200 rounded w-5/6" />
+                                    </div>
+                                </div>
+                            ))
+                        ) : blogPosts.length === 0 ? (
+                            <div className="col-span-full text-center py-12">
+                                <p className="text-secondary text-lg">No blog posts yet. Check back soon!</p>
+                            </div>
+                        ) : (
+                            blogPosts.slice(0, 3).map((post, index) => {
+                                const imageUrl = post.featuredImage
+                                    ? urlFor(post.featuredImage).width(600).height(400).url()
+                                    : '/img/blog-placeholder.jpg'
+
+                                const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                })
+
+                                return (
+                                    <motion.div
+                                        key={post._id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        viewport={{ once: true }}
+                                    >
+                                        <Link
+                                            href={`/blog/${post.slug.current}`}
+                                            className="group block bg-white rounded-3xl overflow-hidden shadow-lg border border-tertiary hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                                        >
+                                            <div className="relative h-56 overflow-hidden">
+                                                <Image
+                                                    src={imageUrl}
+                                                    alt={post.title}
+                                                    fill
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+                                                <div className="absolute bottom-4 left-4 text-white">
+                                                    <div className="text-sm font-medium mb-1 opacity-90">{formattedDate}</div>
+                                                </div>
+                                            </div>
+                                            <div className="p-8 flex-1 flex flex-col">
+                                                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                                                    {post.title}
+                                                </h3>
+                                                <p className="text-secondary line-clamp-3 mb-6 flex-1">
+                                                    {post.excerpt}
+                                                </p>
+                                                <span className="text-primary font-semibold flex items-center group-hover:underline mt-auto">
+                                                    Read Article
+                                                </span>
+                                            </div>
+                                        </Link>
+                                    </motion.div>
+                                )
+                            }))}
+                    </div>
+
+                    {/* Mobile view all link */}
+                    <div className="md:hidden mt-8 text-center">
+                        <Link
+                            href="/blog"
+                            className="group inline-flex items-center space-x-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+                        >
+                            <span>View all posts</span>
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section id="download-section" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-tertiary/50 to-primary/5 relative overflow-hidden">
+                <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-50"></div>
+                </div>
+
+                <div className="max-w-6xl mx-auto text-center relative z-10">
+                    <motion.div
+                        initial={{ y: 50, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                            Get started for free
+                        </h2>
+
+                        <p className="text-xl text-secondary mb-12">
+                            You don't need a subscription to use Pray4Me.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
+                            <motion.a
+                                href="https://apps.apple.com/us/app/pray4me-christian-requests/id6744624982"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-text text-white px-8 py-4 rounded-full font-semibold flex items-center space-x-3 hover:bg-text/90 transition-all duration-300 shadow-lg"
+                            >
+                                <Download className="w-5 h-5" />
+                                <span>App Store</span>
+                            </motion.a>
+
+                            <motion.a
+                                href="https://play.google.com/store/apps/details?id=com.liaxo.prayforme"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-text text-white px-8 py-4 rounded-full font-semibold flex items-center space-x-3 hover:bg-text/90 transition-all duration-300 shadow-lg"
+                            >
+                                <Download className="w-5 h-5" />
+                                <span>Google Play</span>
+                            </motion.a>
+
+
+                        </div>
+
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true }}
+                            className="relative"
+                        >
+                            <div className="flex justify-center items-end max-w-5xl mx-auto relative flex-wrap sm:flex-nowrap gap-4 sm:gap-0">
+                                {/* Left image */}
+                                <motion.div
+                                    animate={{ y: [0, -8, 0] }}
+                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                                    className="relative flex-shrink-0 sm:-mr-8 z-10 order-1 sm:order-1"
+                                >
+                                    <Image
+                                        src="/img/imageOne.png"
+                                        alt="Prayer moment"
+                                        width={180}
+                                        height={270}
+                                        className="rounded-2xl shadow-xl transform rotate-[-8deg] hover:rotate-[-4deg] transition-transform duration-300"
+                                    />
+                                </motion.div>
+
+                                {/* Center image - highest z-index */}
+                                <motion.div
+                                    animate={{ y: [0, -12, 0] }}
+                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                    className="relative z-20 flex-shrink-0 order-2 sm:order-2"
+                                >
+                                    <Image
+                                        src="/img/imageTwo.png"
+                                        alt="Community prayer"
+                                        width={220}
+                                        height={330}
+                                        className="rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300"
+                                    />
+                                </motion.div>
+
+                                {/* Right image */}
+                                <motion.div
+                                    animate={{ y: [0, -6, 0] }}
+                                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                                    className="relative flex-shrink-0 sm:-ml-8 z-10 order-3 sm:order-3"
+                                >
+                                    <Image
+                                        src="/img/imageThree.png"
+                                        alt="Faith gathering"
+                                        width={180}
+                                        height={270}
+                                        className="rounded-2xl shadow-xl transform rotate-[8deg] hover:rotate-[4deg] transition-transform duration-300"
+                                    />
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            <Footer />
+            <BetaDownloadModal />
+        </main>
+    )
+}

@@ -1,6 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service | Pray4Me',
+  alternates: {
+    canonical: '/terms',
+  },
+}
 
 export default function TermsOfService() {
   return (
@@ -13,8 +21,8 @@ export default function TermsOfService() {
               <Image src="/img/logo.svg" alt="Pray4Me Logo" width={40} height={40} />
               <span className="text-xl font-bold">Pray4Me</span>
             </Link>
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="text-primary hover:text-primary/80 transition-colors"
             >
               Back to Home
@@ -26,7 +34,7 @@ export default function TermsOfService() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
         <p className="text-secondary mb-8">Last updated: July 10, 2025</p>
-        
+
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Acceptance of Terms</h2>
@@ -38,7 +46,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Description of Service</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              Pray4Me is a mobile application that connects users in a faith-based community for prayer, support, and spiritual encouragement. 
+              Pray4Me is a mobile application that connects users in a faith-based community for prayer, support, and spiritual encouragement.
               The service allows users to share prayer requests, pray for others, and receive gentle reminders for spiritual reflection.
             </p>
             <p className="text-secondary leading-relaxed mb-4">
@@ -52,7 +60,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Eligibility and Age Requirements</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              You must be at least 13 years old to use Pray4Me. By using our service, you represent and warrant that you meet this age requirement. 
+              You must be at least 13 years old to use Pray4Me. By using our service, you represent and warrant that you meet this age requirement.
               If you are under 18, you must have permission from a parent or guardian to use our service.
             </p>
           </section>
@@ -90,10 +98,10 @@ export default function TermsOfService() {
             <h2 className="text-2xl font-semibold mb-4 text-text">User Content and Avatar Photos</h2>
             <h3 className="text-xl font-medium mb-3 text-text">Content Ownership</h3>
             <p className="text-secondary leading-relaxed mb-4">
-              You retain ownership of any content you submit, including prayer requests and avatar photos. 
+              You retain ownership of any content you submit, including prayer requests and avatar photos.
               However, by using our service, you grant us a non-exclusive, worldwide license to use, display, and distribute your content as necessary to provide our services.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Avatar Photo Guidelines</h3>
             <ul className="list-disc pl-6 text-secondary space-y-2 mb-4">
               <li>Avatar photos must be appropriate and respectful</li>
@@ -102,10 +110,10 @@ export default function TermsOfService() {
               <li>We reserve the right to remove inappropriate avatar photos</li>
               <li>You are responsible for ensuring you have rights to any photo you upload</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Content Monitoring</h3>
             <p className="text-secondary leading-relaxed">
-              While we do not actively monitor all content, we reserve the right to review, moderate, and remove any content that violates our guidelines. 
+              While we do not actively monitor all content, we reserve the right to review, moderate, and remove any content that violates our guidelines.
               Users can report inappropriate content through the app.
             </p>
           </section>
@@ -127,7 +135,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Intellectual Property</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              The Pray4Me application, including its design, code, and content, is protected by intellectual property laws. 
+              The Pray4Me application, including its design, code, and content, is protected by intellectual property laws.
               You may not copy, modify, distribute, or reverse engineer any part of the application.
             </p>
           </section>
@@ -135,8 +143,8 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Limitation of Liability</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              Pray4Me is provided "as is" without warranties of any kind. We are not liable for any damages or losses 
-              arising from your use of the service. The application is intended for spiritual support and community, 
+              Pray4Me is provided "as is" without warranties of any kind. We are not liable for any damages or losses
+              arising from your use of the service. The application is intended for spiritual support and community,
               not as a substitute for professional counseling or medical advice.
             </p>
           </section>
@@ -147,7 +155,7 @@ export default function TermsOfService() {
             <p className="text-secondary leading-relaxed mb-4">
               Pray4Me's core functionality is completely free. Optional premium subscriptions unlock additional features but are not required to participate in our prayer community.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Subscription Terms</h3>
             <ul className="list-disc pl-6 text-secondary space-y-2 mb-4">
               <li><strong>Monthly Subscription:</strong> Billed monthly, cancel anytime</li>
@@ -157,10 +165,10 @@ export default function TermsOfService() {
               <li>No refunds for partial subscription periods</li>
               <li>Premium features remain accessible until the end of your billing period after cancellation</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Cancellation</h3>
             <p className="text-secondary leading-relaxed">
-              You can cancel your subscription at any time through your app store account settings. 
+              You can cancel your subscription at any time through your app store account settings.
               Cancellation will take effect at the end of your current billing period.
             </p>
           </section>
@@ -168,10 +176,10 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">User Conduct and Community Standards</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              Pray4Me is a faith-based community platform. While we encourage open and supportive communication, 
+              Pray4Me is a faith-based community platform. While we encourage open and supportive communication,
               we maintain strict standards to ensure a safe and respectful environment for all users.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Prohibited Behavior</h3>
             <p className="text-secondary leading-relaxed mb-4">The following behaviors are strictly prohibited and may result in immediate account suspension or termination:</p>
             <ul className="list-disc pl-6 text-secondary space-y-2 mb-4">
@@ -184,7 +192,7 @@ export default function TermsOfService() {
               <li>Violating others' privacy or sharing personal information without consent</li>
               <li>Promoting hate speech, discrimination, or illegal activities</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Enforcement Actions</h3>
             <p className="text-secondary leading-relaxed mb-4">
               We reserve the right to take the following actions against users who violate our community standards:
@@ -210,14 +218,14 @@ export default function TermsOfService() {
               <li>Your behavior disrupts the spiritual and supportive nature of our platform</li>
               <li>You engage in activities that could harm other users or the platform</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Account Deletion Requests</h3>
             <p className="text-secondary leading-relaxed mb-4">
-              You may request deletion of your account and associated data by contacting us at support@pray4me.app. 
+              You may request deletion of your account and associated data by contacting us at support@pray4me.app.
               We will process your deletion request and remove your account and data within 30 days of receiving your request.
             </p>
             <p className="text-secondary leading-relaxed">
-              To request account deletion, please email us at support@pray4me.app with your request. 
+              To request account deletion, please email us at support@pray4me.app with your request.
               Upon account deletion, your personal data will be removed in accordance with our Privacy Policy.
             </p>
           </section>
@@ -225,7 +233,7 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Changes to Terms</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              We may update these terms from time to time. Users will be notified of significant changes, 
+              We may update these terms from time to time. Users will be notified of significant changes,
               and continued use of the service constitutes acceptance of the updated terms.
             </p>
           </section>

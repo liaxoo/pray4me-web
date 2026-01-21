@@ -1,6 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '../../components/Footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Pray4Me',
+  alternates: {
+    canonical: '/privacy',
+  },
+}
 
 export default function PrivacyPolicy() {
   return (
@@ -13,8 +21,8 @@ export default function PrivacyPolicy() {
               <Image src="/img/logo.svg" alt="Pray4Me Logo" width={40} height={40} />
               <span className="text-xl font-bold">Pray4Me</span>
             </Link>
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="text-primary hover:text-primary/80 transition-colors"
             >
               Back to Home
@@ -26,12 +34,12 @@ export default function PrivacyPolicy() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
         <p className="text-secondary mb-8">Last updated: July 10, 2025</p>
-        
+
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Introduction</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              At Pray4Me, we respect your privacy and are committed to protecting your personal information. 
+              At Pray4Me, we respect your privacy and are committed to protecting your personal information.
               This Privacy Policy explains how we collect, use, and safeguard your information when you use our application.
             </p>
           </section>
@@ -46,7 +54,7 @@ export default function PrivacyPolicy() {
               <li>Usage data and app interactions</li>
               <li>Device information and identifiers</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Analytics and Tracking Data</h3>
             <p className="text-secondary leading-relaxed mb-4">
               We collect non-identifiable metrics to help us improve the platform and provide a better user experience:
@@ -63,10 +71,10 @@ export default function PrivacyPolicy() {
 
             <h3 className="text-xl font-medium mb-3 text-text">Data Storage and Security</h3>
             <p className="text-secondary leading-relaxed mb-4">
-              We store non-identifiable information including usernames and display names on Supabase, our database provider. 
+              We store non-identifiable information including usernames and display names on Supabase, our database provider.
               This data is not encrypted but does not include sensitive personal information like full names, addresses, or payment details.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Third-Party Services</h3>
             <p className="text-secondary leading-relaxed mb-4">
               We use the following third-party services that may collect data and can tie activity back to your user account:
@@ -86,10 +94,10 @@ export default function PrivacyPolicy() {
               <li><strong>Firebase:</strong> Tracks app usage, feature interactions, and user journey to improve the app experience, and monitors crashes and errors to help us identify and fix technical issues</li>
               <li><strong>Superwall:</strong> Monitors paywall interactions and subscription flow to optimize the premium experience</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Opt-Out Options</h3>
             <p className="text-secondary leading-relaxed">
-              To opt out of analytics tracking and data collection, please contact us at support@pray4me.app. 
+              To opt out of analytics tracking and data collection, please contact us at support@pray4me.app.
               We will process your request and disable tracking for your account. However, some tracking may still occur for essential app functionality.
             </p>
           </section>
@@ -124,19 +132,19 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Data Security</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              We implement appropriate security measures to protect your personal information against unauthorized access, 
+              We implement appropriate security measures to protect your personal information against unauthorized access,
               alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">International Data Transfers</h3>
             <p className="text-secondary leading-relaxed mb-4">
-              Your data may be transferred to and processed in the United States and other countries where our service providers operate. 
+              Your data may be transferred to and processed in the United States and other countries where our service providers operate.
               For EU users, we ensure adequate protection through appropriate safeguards and standard contractual clauses.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Age Verification</h3>
             <p className="text-secondary leading-relaxed">
-              Pray4Me is intended for users 13 years of age and older. We do not knowingly collect personal information from children under 13. 
+              Pray4Me is intended for users 13 years of age and older. We do not knowingly collect personal information from children under 13.
               If we become aware that we have collected personal information from a child under 13, we will delete such information immediately.
             </p>
           </section>
@@ -144,7 +152,7 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Subscription Services</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              Pray4Me offers optional premium features through monthly and yearly subscription plans. 
+              Pray4Me offers optional premium features through monthly and yearly subscription plans.
               No subscription is required to use the core features of Pray4Me.
             </p>
             <h3 className="text-xl font-medium mb-3 text-text">Subscription Data</h3>
@@ -159,13 +167,13 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Data Retention</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              We retain your personal information indefinitely to maintain the continuity of our prayer community and your prayer history. 
+              We retain your personal information indefinitely to maintain the continuity of our prayer community and your prayer history.
               You can request deletion of your account and associated data at any time by contacting us.
             </p>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Photo and Avatar Data</h3>
             <p className="text-secondary leading-relaxed">
-              Users can upload photos for their avatars. These images are stored securely and are only visible to other users as profile pictures. 
+              Users can upload photos for their avatars. These images are stored securely and are only visible to other users as profile pictures.
               You can change or remove your avatar at any time within the app.
             </p>
           </section>
@@ -182,7 +190,7 @@ export default function PrivacyPolicy() {
               <li>Request a copy of your data</li>
               <li>Cancel subscriptions through your app store account</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Response Timeline</h3>
             <p className="text-secondary leading-relaxed mb-4">
               We will respond to your requests within the following timeframes:
@@ -192,7 +200,7 @@ export default function PrivacyPolicy() {
               <li><strong>Account Deletion:</strong> We will delete your account and associated data within 30 days of receiving your request</li>
               <li><strong>Opt-out Requests:</strong> We will process opt-out requests within 7 days of receiving your request</li>
             </ul>
-            
+
             <h3 className="text-xl font-medium mb-3 text-text">Rights for European Union Users (GDPR)</h3>
             <p className="text-secondary leading-relaxed mb-4">
               If you are located in the European Union, you have additional rights under the General Data Protection Regulation (GDPR):
@@ -209,7 +217,7 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Contact Us</h2>
             <p className="text-secondary leading-relaxed">
-              If you have any questions about this Privacy Policy or our data practices, 
+              If you have any questions about this Privacy Policy or our data practices,
               please contact us at support@pray4me.app.
             </p>
           </section>
