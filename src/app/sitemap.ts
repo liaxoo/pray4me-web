@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
 import { getAllPosts } from '../../sanity'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
