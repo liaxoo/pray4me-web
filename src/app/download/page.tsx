@@ -89,10 +89,12 @@ function DownloadContent() {
             language: navigator.language || 'unknown'
         })
 
-        // For iOS: Let Smart App Banner handle it (don't redirect)
+        // For iOS: Redirect to App Store (triggers native sheet)
         // For Android: Redirect to Play Store (Chrome shows native prompt)
         // For Desktop: Redirect to home
-        if (detectedPlatform === 'android') {
+        if (detectedPlatform === 'ios') {
+            window.location.href = IOS_STORE_URL
+        } else if (detectedPlatform === 'android') {
             setRedirecting(true)
             window.location.href = ANDROID_STORE_URL
         } else if (detectedPlatform === 'other') {
@@ -100,7 +102,6 @@ function DownloadContent() {
                 window.location.href = '/'
             }, 2000)
         }
-        // iOS: Don't auto-redirect, let the Smart App Banner work
 
         // Show fallback buttons after 3.5 seconds
         const fallbackTimer = setTimeout(() => {
@@ -129,65 +130,57 @@ function DownloadContent() {
                         />
                     </div>
 
-                    {platform === 'ios' ? (
-                        // iOS: Show download prompt immediately since we're using Smart App Banner
-                        <div className="space-y-6">
-                            <h1 className="text-2xl font-bold text-text">
-                                Get the Pray4Me App
-                            </h1>
-                            <p className="text-secondary">
-                                Download now to start your prayer journey
+                <div className="text-center max-w-md">
+                    <div className="mb-8">
+                        <Image
+                            src="/img/logo.svg"
+                            alt="Pray4Me"
+                            width={80}
+                            height={80}
+                            className="mx-auto"
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
+                    </div>
+
+                    <h1 className="text-2xl font-bold mb-3 text-text">
+                        {platform === 'ios' && 'Opening App Store...'}
+                        {platform === 'android' && 'Opening Play Store...'}
+                        {platform === 'other' && 'Redirecting...'}
+                    </h1>
+
+                    <p className="mb-8 text-secondary">
+                        {platform === 'other' 
+                            ? 'Download Pray4Me on your mobile device'
+                            : 'Please wait a moment...'
+                        }
+                    </p>
+
+                    {/* Fallback buttons */}
+                    {showFallback && (
+                        <div className="space-y-3">
+                            <p className="text-sm text-secondary">
+                                Not redirecting? Try these links:
                             </p>
-                            <a
-                                href={IOS_STORE_URL}
-                                className="inline-block bg-text text-white px-8 py-4 rounded-full font-semibold hover:bg-text/90 transition-colors text-lg"
-                            >
-                                Download on App Store
-                            </a>
-                        </div>
-                    ) : (
-                        // Android/Desktop: Show loading state
-                        <>
-                            <div className="mb-6">
-                                <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
+                            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                <a
+                                    href={IOS_STORE_URL}
+                                    className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
+                                >
+                                    App Store
+                                </a>
+                                <a
+                                    href={ANDROID_STORE_URL}
+                                    className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
+                                >
+                                    Google Play
+                                </a>
                             </div>
-
-                            <h1 className="text-2xl font-bold mb-3 text-text">
-                                {platform === 'android' && 'Opening Play Store...'}
-                                {platform === 'other' && 'Redirecting...'}
-                            </h1>
-
-                            <p className="mb-8 text-secondary">
-                                {platform === 'other' 
-                                    ? 'Download Pray4Me on your mobile device'
-                                    : 'Please wait a moment...'
-                                }
-                            </p>
-
-                            {/* Fallback buttons */}
-                            {showFallback && (
-                                <div className="space-y-3">
-                                    <p className="text-sm text-secondary">
-                                        Not redirecting? Try these links:
-                                    </p>
-                                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                        <a
-                                            href={IOS_STORE_URL}
-                                            className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
-                                        >
-                                            App Store
-                                        </a>
-                                        <a
-                                            href={ANDROID_STORE_URL}
-                                            className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
-                                        >
-                                            Google Play
-                                        </a>
-                                    </div>
-                                </div>
-                            )}
-                        </>
+                        </div>
                     )}
+                </div>
                 </div>
             </div>
         </>
