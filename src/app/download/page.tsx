@@ -130,17 +130,6 @@ function DownloadContent() {
                         />
                     </div>
 
-                <div className="text-center max-w-md">
-                    <div className="mb-8">
-                        <Image
-                            src="/img/logo.svg"
-                            alt="Pray4Me"
-                            width={80}
-                            height={80}
-                            className="mx-auto"
-                        />
-                    </div>
-
                     <div className="mb-6">
                         <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto"></div>
                     </div>
@@ -180,7 +169,6 @@ function DownloadContent() {
                             </div>
                         </div>
                     )}
-                </div>
                 </div>
             </div>
         </>

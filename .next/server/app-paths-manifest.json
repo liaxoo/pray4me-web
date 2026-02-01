@@ -2,13 +2,13 @@
   "/api/track-download/route": "app/api/track-download/route.js",
   "/_not-found/page": "app/_not-found/page.js",
   "/sitemap.xml/route": "app/sitemap.xml/route.js",
-  "/blog/[slug]/page": "app/blog/[slug]/page.js",
-  "/p/[id]/page": "app/p/[id]/page.js",
   "/download/page": "app/download/page.js",
-  "/studio/[[...tool]]/page": "app/studio/[[...tool]]/page.js",
+  "/p/[id]/page": "app/p/[id]/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
   "/u/[id]/page": "app/u/[id]/page.js",
-  "/blog/page": "app/blog/page.js",
-  "/privacy/page": "app/privacy/page.js",
+  "/studio/[[...tool]]/page": "app/studio/[[...tool]]/page.js",
+  "/terms/page": "app/terms/page.js",
   "/page": "app/page.js",
-  "/terms/page": "app/terms/page.js"
+  "/privacy/page": "app/privacy/page.js",
+  "/blog/page": "app/blog/page.js"
 }
