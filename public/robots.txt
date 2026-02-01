@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Allow: /.well-known/
+Disallow: /u/
+Disallow: /p/
+Disallow: /studio/
 
 Sitemap: https://pray4me.app/sitemap.xml

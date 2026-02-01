@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Terms of Service | Pray4Me',
   alternates: {
-    canonical: '/terms',
+    canonical: 'https://pray4me.app/terms',
   },
 }
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Blog | Pray4Me',
     description: 'Insights on prayer, community, and faith from the Pray4Me team.',
     alternates: {
-        canonical: '/blog',
+        canonical: 'https://pray4me.app/blog',
     },
 }
 

@@ -11,6 +11,13 @@
       "static/chunks/4406.699afd687e314b38.js"
     ]
   },
+  "../node_modules/@sanity/insert-menu/node_modules/@sanity/ui/dist/_chunks-es/_visual-editing.mjs -> ./refractor.mjs": {
+    "id": 34498,
+    "files": [
+      "static/chunks/352-ba4c7d040ef25dd2.js",
+      "static/chunks/4498.20329bd0c5375f39.js"
+    ]
+  },
   "../node_modules/@sanity/next-loader/dist/client-components/live-stream.js -> ../_chunks-es/SanityLiveStream.js": {
     "id": 56499,
     "files": [
@@ -18,9 +25,9 @@
     ]
   },
   "../node_modules/@sanity/next-loader/dist/client-components/live.js -> ../_chunks-es/PresentationComlink.js": {
-    "id": 57004,
+    "id": 9967,
     "files": [
-      "static/chunks/7004.d1fbc4c8843f12ed.js"
+      "static/chunks/9967.a9aed98b492b1449.js"
     ]
   },
   "../node_modules/@sanity/next-loader/dist/client-components/live.js -> ../_chunks-es/RefreshOnFocus.js": {
@@ -41,28 +48,29 @@
       "static/chunks/2977.e802128a9cd4bcfe.js"
     ]
   },
-  "../node_modules/@sanity/ui/dist/_chunks-es/_visual-editing.mjs -> ./refractor.mjs": {
-    "id": 31826,
-    "files": [
-      "static/chunks/352-ba4c7d040ef25dd2.js",
-      "static/chunks/1826.5ee547bbbf69cd92.js"
-    ]
-  },
   "../node_modules/next-sanity/dist/studio/client-component.js -> ../_chunks-es/NextStudio.js": {
     "id": 24440,
     "files": [
-      "static/chunks/4440.453307745b4efdd0.js"
+      "static/chunks/4440.c935eeb008b86ec8.js"
     ]
   },
   "../node_modules/next-sanity/dist/visual-editing/client-component.js -> ../_chunks-es/VisualEditing.js": {
-    "id": 29814,
+    "id": 18141,
     "files": [
-      "static/chunks/c0e7568e-bb9958acb154ca98.js",
+      "static/chunks/5415aed5-a6faae114409e58f.js",
       "static/chunks/3204862b-b5db1cc9c0a56664.js",
       "static/chunks/06f0e697.f207eddd5d9033ec.js",
-      "static/chunks/6929-3932bb9c6ac25ad4.js",
-      "static/chunks/9814.c80f6ce248593338.js",
-      "static/chunks/8820.5ca792833baef4e2.js"
+      "static/chunks/7a276d76.ca8a59907f9c4955.js",
+      "static/chunks/2311-f1f6ffea5c48e820.js",
+      "static/chunks/8141.f7bfbb06cfc4ffd3.js",
+      "static/chunks/8328.0fb58663b4885c1b.js"
+    ]
+  },
+  "../node_modules/next-sanity/node_modules/@sanity/ui/dist/_chunks-es/_visual-editing.mjs -> ./refractor.mjs": {
+    "id": 17078,
+    "files": [
+      "static/chunks/352-ba4c7d040ef25dd2.js",
+      "static/chunks/7078.076d13125164432a.js"
     ]
   },
   "../node_modules/sanity/lib/_chunks-es/StructureToolProvider.mjs -> ./resources6.mjs": {
@@ -74,13 +82,13 @@
   "../node_modules/sanity/lib/_chunks-es/index3.mjs -> ./index.mjs": {
     "id": 45562,
     "files": [
-      "static/chunks/5562.70e8f6c94f718ec1.js"
+      "static/chunks/5562.f063fa1035c6ebec.js"
     ]
   },
   "../node_modules/sanity/lib/_chunks-es/index3.mjs -> ./index2.mjs": {
     "id": 78778,
     "files": [
-      "static/chunks/8778.14beacfcdd68628a.js"
+      "static/chunks/8778.d3b7e389a4d8edea.js"
     ]
   },
   "../node_modules/sanity/lib/_chunks-es/index3.mjs -> ./pane.mjs": {
@@ -90,20 +98,20 @@
   "../node_modules/sanity/lib/_chunks-es/pane.mjs -> ./index3.mjs": {
     "id": 4713,
     "files": [
-      "static/chunks/4713.d05acac977f6d2ac.js"
+      "static/chunks/4713.faf58d4870a63f5c.js"
     ]
   },
   "../node_modules/sanity/lib/index.mjs -> ./_chunks-es/VideoPlayer.mjs": {
-    "id": 71917,
+    "id": 6516,
     "files": [
       "static/chunks/a4634e51.9b33c2cafdc3ebc4.js",
-      "static/chunks/1917.e03c1f637e2b59b0.js"
+      "static/chunks/6516.e58f82d512180af1.js"
     ]
   },
   "../node_modules/sanity/lib/index.mjs -> ./_chunks-es/ViteDevServerStopped.mjs": {
     "id": 46521,
     "files": [
-      "static/chunks/6521.cfdbec671182b599.js"
+      "static/chunks/6521.24a953865d8fd6a2.js"
     ]
   },
   "../node_modules/sanity/lib/index.mjs -> ./_chunks-es/resources.mjs": {
@@ -134,6 +142,12 @@
     "id": 52620,
     "files": [
       "static/chunks/2620.9b8011b2e71ecfee.js"
+    ]
+  },
+  "../node_modules/sanity/node_modules/@sanity/ui/dist/_chunks-es/_visual-editing.mjs -> ./refractor.mjs": {
+    "id": 69236,
+    "files": [
+      "static/chunks/9236.de5d58dc2fc9799a.js"
     ]
   }
 }

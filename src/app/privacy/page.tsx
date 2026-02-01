@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Privacy Policy | Pray4Me',
   alternates: {
-    canonical: '/privacy',
+    canonical: 'https://pray4me.app/privacy',
   },
 }
 

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'Pray4Me',
     images: [
       {
-        url: 'https://pray4me.app/og-image.png', // Ensure this image exists in public folder
+        url: 'https://pray4me.app/og-image.png',
         width: 1200,
         height: 630,
       },
@@ -31,9 +31,7 @@ export const metadata: Metadata = {
     description: 'You don\'t need much time - 5 minutes a day is plenty - and it can help someone in need.',
     images: ['https://pray4me.app/og-image.png'],
   },
-
 }
-
 
 export default function RootLayout({
   children,
@@ -45,4 +43,4 @@ export default function RootLayout({
       <body className="font-outfit">{children}</body>
     </html>
   )
-} 
+}  

@@ -4,7 +4,7 @@ import LandingPage from '../components/LandingPage'
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: '/',
+    canonical: 'https://pray4me.app/',
   },
 }
 

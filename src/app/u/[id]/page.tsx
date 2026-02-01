@@ -15,6 +15,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return {
         title: `Pray using Pray4Me`,
         description: `Join ${name} in prayer on the Pray4Me app.`,
+        robots: {
+            index: false,
+            follow: false,
+        },
         openGraph: {
             title: `Pray for ${name}`,
             description: `Join ${name} in prayer.`,
@@ -24,9 +28,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         appleWebApp: {
             title: 'Pray4Me'
         },
-        alternates: {
-            canonical: `/u/${id}`,
-        }
     }
 }
 

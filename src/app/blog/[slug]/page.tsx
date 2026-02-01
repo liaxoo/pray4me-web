@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             publishedTime: post.publishedAt,
         },
         alternates: {
-            canonical: `/blog/${slug}`,
+            canonical: `https://pray4me.app/blog/${slug}`,
         },
     }
 }
