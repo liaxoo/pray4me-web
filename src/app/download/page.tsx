@@ -8,11 +8,9 @@ import Image from 'next/image'
 const APP_STORE_ID = '6744624982'
 const PLAY_STORE_ID = 'com.liaxo.prayforme'
 
-// Store URLs
-const IOS_STORE_URL = `itms-apps://itunes.apple.com/app/id${APP_STORE_ID}`
-const ANDROID_STORE_URL = `market://details?id=${PLAY_STORE_ID}`
-const IOS_FALLBACK_URL = `https://apps.apple.com/app/id${APP_STORE_ID}`
-const ANDROID_FALLBACK_URL = `https://play.google.com/store/apps/details?id=${PLAY_STORE_ID}`
+// Store URLs - using https URLs which trigger native sheet behavior in Safari/Chrome
+const IOS_STORE_URL = `https://apps.apple.com/app/id${APP_STORE_ID}`
+const ANDROID_STORE_URL = `https://play.google.com/store/apps/details?id=${PLAY_STORE_ID}`
 
 type Platform = 'ios' | 'android' | 'other'
 
@@ -54,8 +52,8 @@ async function trackDownload(data: {
 
 function DownloadContent() {
     const searchParams = useSearchParams()
-    const [status, setStatus] = useState<'detecting' | 'redirecting' | 'fallback'>('detecting')
     const [platform, setPlatform] = useState<Platform>('other')
+    const [showFallback, setShowFallback] = useState(false)
 
     useEffect(() => {
         const userAgent = navigator.userAgent
@@ -78,24 +76,24 @@ function DownloadContent() {
             language: navigator.language || 'unknown'
         })
 
-        setStatus('redirecting')
-
+        // Redirect to store (native sheet will appear)
         if (detectedPlatform === 'ios') {
             window.location.href = IOS_STORE_URL
-            setTimeout(() => {
-                window.location.href = IOS_FALLBACK_URL
-            }, 1500)
         } else if (detectedPlatform === 'android') {
             window.location.href = ANDROID_STORE_URL
-            setTimeout(() => {
-                window.location.href = ANDROID_FALLBACK_URL
-            }, 1500)
         } else {
-            setStatus('fallback')
+            // Desktop - redirect to home after short delay
             setTimeout(() => {
                 window.location.href = '/'
             }, 2000)
         }
+
+        // Show fallback buttons after 3.5 seconds if user is still on page
+        const fallbackTimer = setTimeout(() => {
+            setShowFallback(true)
+        }, 3500)
+
+        return () => clearTimeout(fallbackTimer)
     }, [searchParams])
 
     return (
@@ -116,36 +114,38 @@ function DownloadContent() {
                 </div>
 
                 <h1 className="text-2xl font-bold text-text mb-3">
-                    {status === 'detecting' && 'Detecting your device...'}
-                    {status === 'redirecting' && platform === 'ios' && 'Opening App Store...'}
-                    {status === 'redirecting' && platform === 'android' && 'Opening Play Store...'}
-                    {status === 'fallback' && 'Redirecting to home...'}
+                    {platform === 'ios' && 'Opening App Store...'}
+                    {platform === 'android' && 'Opening Play Store...'}
+                    {platform === 'other' && 'Redirecting...'}
                 </h1>
 
                 <p className="text-secondary mb-8">
-                    {status === 'fallback' 
+                    {platform === 'other' 
                         ? 'Download Pray4Me on your mobile device'
                         : 'Please wait a moment...'
                     }
                 </p>
 
-                <div className="space-y-3">
-                    <p className="text-sm text-secondary">Not redirecting? Try these links:</p>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                        <a
-                            href={IOS_FALLBACK_URL}
-                            className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
-                        >
-                            App Store
-                        </a>
-                        <a
-                            href={ANDROID_FALLBACK_URL}
-                            className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
-                        >
-                            Google Play
-                        </a>
+                {/* Fallback buttons - only show after 3.5 seconds */}
+                {showFallback && (
+                    <div className="space-y-3 animate-fade-in">
+                        <p className="text-sm text-secondary">Not redirecting? Try these links:</p>
+                        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                            <a
+                                href={IOS_STORE_URL}
+                                className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
+                            >
+                                App Store
+                            </a>
+                            <a
+                                href={ANDROID_STORE_URL}
+                                className="bg-text text-white px-6 py-3 rounded-full font-medium hover:bg-text/90 transition-colors"
+                            >
+                                Google Play
+                            </a>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     )
