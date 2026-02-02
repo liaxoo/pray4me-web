@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-        <p className="text-secondary mb-8">Last updated: July 10, 2025</p>
+        <p className="text-secondary mb-8">Last updated: February 2, 2026</p>
 
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
@@ -114,6 +114,16 @@ export default function PrivacyPolicy() {
               <li>To send important updates about the service</li>
               <li>To ensure the safety and security of our community</li>
             </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4 text-text">Marketing Communications</h2>
+            <p className="text-secondary leading-relaxed mb-4">
+              We may use your personal information to contact you with newsletters, marketing or promotional materials
+              and other information that may be of interest to you. You may opt out of receiving any, or all, of these
+              communications from us by following the unsubscribe link or instructions provided in any email we send
+              or by contacting us.
+            </p>
           </section>
 
           <section className="mb-8">
@@ -212,6 +222,15 @@ export default function PrivacyPolicy() {
               <li><strong>Right to Lodge a Complaint:</strong> File a complaint with your local data protection authority</li>
               <li><strong>Legal Basis:</strong> We process your data based on your consent and our legitimate interest in providing prayer services</li>
             </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4 text-text">Changes to This Privacy Policy</h2>
+            <p className="text-secondary leading-relaxed mb-4">
+              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy
+              on this page and sending you an email notification. You are advised to review this Privacy Policy periodically for any changes.
+              Changes to this Privacy Policy are effective when they are posted on this page.
+            </p>
           </section>
 
           <section className="mb-8">

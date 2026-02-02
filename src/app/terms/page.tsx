@@ -33,7 +33,7 @@ export default function TermsOfService() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
-        <p className="text-secondary mb-8">Last updated: July 10, 2025</p>
+        <p className="text-secondary mb-8">Last updated: February 2, 2026</p>
 
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
@@ -129,6 +129,15 @@ export default function TermsOfService() {
             </p>
             <p className="text-secondary leading-relaxed">
               To opt out of tracking features, please contact us at support@pray4me.app. We will process your request and disable tracking for your account, though some essential functionality may require minimal data collection.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4 text-text">Communications</h2>
+            <p className="text-secondary leading-relaxed mb-4">
+              By creating an account on our service, you agree to subscribe to newsletters, marketing or promotional materials
+              and other information we may send. However, you may opt out of receiving any, or all, of these communications
+              from us by following the unsubscribe link or instructions provided in any email we send to you.
             </p>
           </section>
 
@@ -233,8 +242,9 @@ export default function TermsOfService() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-text">Changes to Terms</h2>
             <p className="text-secondary leading-relaxed mb-4">
-              We may update these terms from time to time. Users will be notified of significant changes,
-              and continued use of the service constitutes acceptance of the updated terms.
+              We may update our Terms of Service from time to time. We will notify you of any changes by posting the new Terms of Service
+              on this page and sending you an email notification. You are advised to review this Terms of Service periodically for any changes.
+              Changes to this Terms of Service are effective when they are posted on this page.
             </p>
           </section>
 
