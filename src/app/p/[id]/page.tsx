@@ -59,7 +59,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         setTimeout(function() {
             // If the user is still here after 5 seconds, they likely don't have the app.
             // Increased timeout for Android compatibility to allow system prompts to appear.
-            window.location.href = "/";
+            window.location.href = "/download?ref=prayer_${id}";
         }, 5000);
       `}} />
         </div>
