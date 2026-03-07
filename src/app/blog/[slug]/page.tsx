@@ -2,13 +2,20 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronLeft, Calendar, Clock } from 'lucide-react'
-import { getPostBySlug, urlFor } from '../../../../sanity'
+import { getPostBySlug, getAllPostSlugs, urlFor } from '../../../../sanity'
 import type { BlogPost } from '../../../../sanity/lib/queries'
 import { SanityContent } from '../../../components/SanityContent'
 import Footer from '../../../components/Footer'
 import BlogCTA from '../../../components/BlogCTA'
 import ScrollProgress from '../../../components/ScrollProgress'
 import type { Metadata } from 'next'
+
+export async function generateStaticParams() {
+    const slugs = await getAllPostSlugs()
+    return slugs.map((slug) => ({ slug }))
+}
+
+export const revalidate = 3600 // revalidate every hour
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params
@@ -24,15 +31,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         ? urlFor(post.featuredImage).width(1200).height(600).url()
         : 'https://pray4me.app/img/blog-placeholder.jpg'
 
+    const title = post.seo?.metaTitle || post.title
+    const description = post.seo?.metaDescription || post.excerpt || ''
+
     return {
-        title: `${post.title} | Pray4Me Blog`,
-        description: post.excerpt,
+        title,
+        description,
+        authors: [{ name: post.author || 'Pray4Me Team', url: 'https://pray4me.app' }],
         openGraph: {
-            title: post.title,
-            description: post.excerpt,
-            images: [featuredImageUrl],
+            title,
+            description,
+            images: [{ url: featuredImageUrl, width: 1200, height: 600, alt: post.title }],
             type: 'article',
             publishedTime: post.publishedAt,
+            siteName: 'Pray4Me',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: [featuredImageUrl],
         },
         alternates: {
             canonical: `https://pray4me.app/blog/${slug}`,
@@ -141,26 +159,39 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
             </article>
 
-            <section>
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            '@context': 'https://schema.org',
-                            '@type': 'BlogPosting',
-                            headline: post.title,
-                            image: [featuredImageUrl],
-                            datePublished: post.publishedAt,
-                            dateModified: post.publishedAt,
-                            author: [{
-                                '@type': 'Organization',
-                                name: 'Pray4Me Team',
-                                url: 'https://pray4me.app'
-                            }],
-                        })
-                    }}
-                />
-            </section>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BlogPosting',
+                        mainEntityOfPage: {
+                            '@type': 'WebPage',
+                            '@id': `https://pray4me.app/blog/${slug}`,
+                        },
+                        headline: post.title,
+                        description: post.excerpt || '',
+                        image: [featuredImageUrl],
+                        datePublished: post.publishedAt,
+                        dateModified: post.publishedAt,
+                        author: [{
+                            '@type': 'Person',
+                            name: post.author || 'Pray4Me Team',
+                            url: 'https://pray4me.app',
+                        }],
+                        publisher: {
+                            '@type': 'Organization',
+                            name: 'Pray4Me',
+                            url: 'https://pray4me.app',
+                            logo: {
+                                '@type': 'ImageObject',
+                                url: 'https://pray4me.app/img/logo.svg',
+                            },
+                        },
+                        url: `https://pray4me.app/blog/${slug}`,
+                    })
+                }}
+            />
 
             <Footer />
         </main>

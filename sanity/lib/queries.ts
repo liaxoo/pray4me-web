@@ -3,6 +3,7 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
 export interface BlogPost {
     _id: string
+    _updatedAt?: string
     title: string
     slug: {
         current: string
@@ -23,6 +24,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     const posts = await client.fetch<BlogPost[]>(
         `*[_type == "post"] | order(publishedAt desc) {
       _id,
+      _updatedAt,
       title,
       slug,
       author,

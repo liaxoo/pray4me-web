@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { getAllPosts, urlFor } from '../../../sanity'
 import type { BlogPost } from '../../../sanity/lib/queries'
 import Footer from '../../components/Footer'
@@ -8,12 +7,21 @@ import { ChevronLeft } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Blog | Pray4Me',
-    description: 'Insights on prayer, community, and faith from the Pray4Me team.',
+    title: 'Blog',
+    description: 'Insights on prayer, faith, and spiritual growth from the Pray4Me team. Read stories of answered prayers, tips for building a prayer habit, and encouragement for your daily walk.',
+    keywords: ['prayer blog', 'christian blog', 'faith articles', 'prayer tips', 'spiritual growth', 'pray4me'],
     alternates: {
         canonical: 'https://pray4me.app/blog',
     },
+    openGraph: {
+        title: 'Blog | Pray4Me',
+        description: 'Insights on prayer, faith, and spiritual growth from the Pray4Me team.',
+        url: 'https://pray4me.app/blog',
+        type: 'website',
+    },
 }
+
+export const revalidate = 3600
 
 export default async function BlogIndex() {
     const posts = await getAllPosts()
